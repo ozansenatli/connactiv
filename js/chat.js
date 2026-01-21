@@ -99,27 +99,23 @@ function render(messages) {
         ? chats[eventId]
         : (chats["default"] ?? []);
 
-    const members = new Set(
-        messages
-            .filter(m => m.type !== "system" && m.from)
+    // 1) Nur "echte" Chat-Messages (ohne system)
+    const cleanedMessages = messages.filter(m => m.type !== "system");
+
+    // 2) Teilnehmer zählen (unique "from"), inkl. dir ("me")
+    const uniqueUsers = new Set(
+        cleanedMessages
+            .filter(m => m.from)      // nur wenn from existiert
             .map(m => m.from)
     );
 
+    uniqueUsers.add("me");
+
+    // 3) Subtitle setzen
     if (chatSubtitleEl) {
-        chatSubtitleEl.textContent = `${members.size} im Chat`;
+        chatSubtitleEl.textContent = `${uniqueUsers.size} Teilnehmer`;
     }
 
-    const otherCount = new Set(
-        messages
-            .filter(m => m.from && m.from !== "me" && m.type !== "system")
-            .map(m => m.from)
-    ).size;
-
-    const memberCount = 1 + otherCount; // +1 für "me"
-
-    if (chatSubtitleEl) {
-        chatSubtitleEl.textContent = `${memberCount} Teilnehmer`;
-    }
-    const cleanedMessages = messages.filter(m => m.type !== "system");
-    render([systemIntro, ...cleanedMessages]);
+    // 4) Rendern (System-Intro + Messages)
+    render([systemIntro, ...cleanedMessages]);  
 })();
