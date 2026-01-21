@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Connactiv - Explore</title>
+
+        <!-- App Styles -->
+        <link rel="stlyesheet" href="./css/reset.css" />
+        <link rel="stylesheet" href="./css/globals.css" />
+        <link rel="stylesheet" href="./css/explore.css" />
+
+        <!-- Leaflet (Map) -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+        />
+    </head>
+
+    <body>
+        <!-- App Shell (mobile-first) -->
+        <div class="app">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="brand">
+                    <img class ="brand-logo" src="./assets/logo.svg" alt="Connactiv Logo" />
+                    <span class="brand-name">Connactiv</span>
+                </div>
+
+                <button class="icon-button" type="button" aria-label="Filter (Demo)">
+                    <!-- Simple icon placeholder (avoid extra deps) -->
+                    <span aria-hidden="true">☰</span>
+                </button>
+            </header>
+
+            <!-- Map -->
+            <main class="app-main">
+                <div id="map" class="map" role="application" aria-label="Karte mit Events"></div>
+                <!-- Lightweigt status pill (optional, can be hidden via CSS) -->
+                <div id="statusPill" class="status-pill" aria-live="polite">
+                    Standort wird ermittelt...
+                </div>
+            </main>
+
+            <!-- Bottom Sheet (hidden by default; shown via JS) -->
+            <section
+                id="bottomSheet"
+                class="bottom-sheet bottom-sheet--hidden"
+                aria-hidden="true"
+                aria-label="Event-Details"
+            >
+                <div class="bottom-sheet_handle" aria-hidden="true"></div>
+
+                <div class="bottom-sheet_content">
+                    <div class="event-meta">
+                        <div>
+                            <h2 id="eventTitle" class="event-title">Event Titel</h2>
+                            <p id="eventSub" class="event-sub"> Heute • 20:00 • 650 m entfernt</p>
+                        </div>
+                        <span id="eventBadge" class="event-badge">8 Personen gehen hin</span>
+                    </div>
+                    <div id="eventTags" class="tag-row" aria-label="Event-Tags">
+                        <!-- Tags injected via JS -->
+                    </div>
+                    <div class="cta-row">
+                        <button id="joinBtn" class="btn btn-primary" type="button">
+                            Teilnehmen
+                        </button>
+                        <button id="closeSheetBtn" class="btn btn-secondary" type="button">
+                            Schließen
+                        </button>
+                    </div>
+                    <p class="demo-hint">Demo-Version - Studienprojekt</p>
+                </div>
+            </section>
+
+            <!-- Backdrop for bottom sheet -->
+            <div id="sheetBackdrop" class="backdrop backdrop--hidden" aria-hidden="true"></div>          
+        </div>
+
+        <!-- Leaflet (Map) -->
+        <script
+            src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""
+        ></script>
+
+        <!-- App Script -->
+        <script src="./js/geo.js" defer></script>
+        <script src="./js/ui.js" defer></script>
+        <script src="./js/explore.js" defer></script>
+    </body>
+</html>
