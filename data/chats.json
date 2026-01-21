@@ -1,0 +1,14 @@
+{
+  "default": [
+    { "type": "system", "text": "Demo-Chat – connecte dich vor dem Event" },
+    { "from": "other", "text": "Hey! Gehst du auch zum Event?", "time": "18:41" },
+    { "from": "me", "text": "Ja, ich bin dabei. Treffen wir uns vorher?", "time": "18:42" },
+    { "from": "other", "text": "Gerne! 10 Min vorher am Eingang?", "time": "18:43" }
+  ],
+  "event-1": [
+    { "type": "system", "text": "3 Leute sind beigetreten" },
+    { "from": "other", "text": "Wer ist noch neu in Berlin?", "time": "19:10" },
+    { "from": "me", "text": "Ich! Wollen wir uns gleich am Venue treffen?", "time": "19:12" },
+    { "from": "other", "text": "Yes, bin 19:50 da.", "time": "19:13" }
+  ]
+}
