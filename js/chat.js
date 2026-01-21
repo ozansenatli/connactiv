@@ -86,6 +86,16 @@ function render(messages) {
         ? chats[eventId]
         : (chats["default"] ?? []);
 
+    const members = new Set(
+        messages
+            .filter(m => m.type !== "system" && m.from)
+            .map(m => m.from)
+    );
+
+    if (chatSubtitleEl) {
+        chatSubtitleEl.textContent = `${members.size} im Chat`;
+    }
+
     const otherCount = new Set(
         messages
             .filter(m => m.from && m.from !== "me" && m.type !== "system")
