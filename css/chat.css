@@ -79,6 +79,17 @@
     opacity: 0.65;
 }
 
+.msg-name {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.75;
+    margin-bottom: 6px;
+}
+
+.msg-text {
+    white-space: pre-wrap;
+}
+
 .system {
     align-self: center;
     text-align: center;
