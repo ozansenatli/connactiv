@@ -90,7 +90,7 @@ connactiv/
 ### Dateien im Detail
 
 #### `index.html` - Explore / Map View
-- Einstiegspunkt in er app
+- Einstiegspunkt in der App
 - Zeigt:
     - Karte (Leaflet + OpenStreetMap)
     - Nutzerstandort
@@ -116,7 +116,7 @@ connactiv/
 
 #### `chat.js`
 - Lädt Chat-Nachrichten aus `chats.json`
-- Rendert statoscje Chat-Bubble-UI
+- Rendert statische Chat-Bubble-UI
 
 ### `geo.js`
 - Berechnet Entfernungen zwischen Standort und Events
