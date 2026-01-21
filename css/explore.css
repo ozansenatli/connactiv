@@ -1,0 +1,16 @@
+/* css/explore.css */
+.app {
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+}
+
+.app-main {
+    position: relative;
+    flex: 1;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
