@@ -44,7 +44,7 @@ Dieser Flow ist exakt der, der im Pitch-Video gescreencaptured wird.
 
 ---
 
-## Features (Mock)
+## Features
 
 - 🗺️ Kartenansicht (Berlin)
 - 📍 Nutzerstandort (echt oder Fallback)
@@ -64,3 +64,22 @@ Alles ist **UI-only** und bewusst vereinfacht.
 - Styling: CSS oder Tailwind
 - Daten: statische JSON-Dateien
 - Hosting: Vercel oder GitHub Pages
+
+
+## Datenmodell
+Events werden aus einer statischen JSON-Datei geladen.
+
+Beispiel:
+```json
+{
+  "id": "event-1",
+  "title": "Pub Quiz Night",
+  "category": "Drinks",
+  "lat": 52.5208,
+  "lng": 13.4095,
+  "startTime": "Heute 20:00",
+  "priceLabel": "free",
+  "attendeesCount": 8,
+  "tags": ["low pressure", "english friendly"],
+  "venueName": "Local Pub"
+}
