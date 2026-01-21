@@ -41,6 +41,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    min-height: 100%;
+    justify-content: flex-end;
 }
 
 .msg {
