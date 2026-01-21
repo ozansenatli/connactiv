@@ -16,7 +16,7 @@ const closeSheetBtn = document.getElementById("closeSheetBtn");
 function openSheet(ev) {
     eventTitle.textContent = ev.title;
     eventSub.textContent = `${ev.startTime ?? ""}`;
-    eventBadge.textContent = `${ev.attendeesCount1 ?? 0} Personen gehen hin`;
+    eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
 
     bottomSheet.classList.remove("bottom-sheet--hidden");
     sheetBackdrop.classList.remove("backdrop--hidden");
