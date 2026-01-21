@@ -53,22 +53,82 @@ Dieser Flow ist exakt der, der im Pitch-Video gescreencaptured wird.
 - 💬 Vorab-Chat (statisch)
 - 📱 Mobile-First / 9:16 optimiert (TikTok-Style)
 
-Alles ist **UI-only** und bewusst vereinfacht.
+Alle Features sind **bewusst vereinfacht** und dienen ausschließlich der Demonstration.
 
 ---
 
-## Tech-Stack
+## Projektstruktur 
+connactiv/
+├─ README.md
+├─ index.html            # Hauptscreen: Explore / Kartenansicht
+├─ chat.html             # Chat Preview (Demo)
+├─ assets/
+│  └─ logo.svg           # Logo / Branding
+├─ css/
+│  ├─ reset.css          # CSS Reset (Browser-Defaults entfernen)
+│  ├─ globals.css        # Globale Styles (Farben, Typografie, Layout)
+│  ├─ explore.css        # Styles für index.html (Karte & Bottom Sheet)
+│  └─ chat.css           # Styles für chat.html (Chat Preview)
+├─ js/
+│  ├─ explore.js         # Kartenlogik, Events, Bottom Sheet
+│  ├─ chat.js            # Chat-Demo-Logik
+│  ├─ geo.js             # Geodistanz-Berechnung & Nearby-Filter
+│  └─ ui.js              # UI-Helfer (Animationen, Toggles)
+├─ data/
+│  ├─ events.json        # Statische Event-Daten (Mock)
+│  └─ chats.json         # Statische Chat-Nachrichten (Mock)
+└─ pitch/
+   └─ skript.md          # Skript für das Pitch-Video
 
-- Frontend: HTML/CSS/JS **oder** React + Vite
-- Karte: Leaflet.js + OpenStreetMap
-- Styling: CSS oder Tailwind
-- Daten: statische JSON-Dateien
-- Hosting: Vercel oder GitHub Pages
+---
+
+### Dateien im Detail
+
+#### `index.html` - Explore / Map View
+- Einstiegspunkt in er app
+- Zeigt:
+    - Karte (Leaflet + OpenStreetMap)
+    - Nutzerstandort
+    - Event-Marker
+- Klick auf Marker öffnet Event-Detail (Bottom Sheet)
+
+#### `chat.html` - Chat Preview
+- Simuliert den Vorab-Chat eines Events
+- Zeigt:
+    - Eventtitel
+    - Statische Nachrichten
+    - Hinweis "Demo-Chat"
 
 
-## Datenmodell
+### JavaScript-Logik
+
+#### `explore.js`
+- Initialisiert die Karte
+- Lädt Events aus `events.json`
+- Setzt Marker
+- Öffnet/schließt das Bottom Sheet
+- Leitet bei "Teilnehmen" zu `chat.html`
+
+#### `chat.js`
+- Lädt Chat-Nachrichten aus `chats.json`
+- Rendert statoscje Chat-Bubble-UI
+
+### `geo.js`
+- Berechnet Entfernungen zwischen Standort und Events
+- Filtert Events im Umkreis (z.B. 1-3 km)
+
+### `ui.js`
+Kleine UI.Hilfsfunktionen
+- z.B.:
+    - Bottom-Sheet-animationen
+    - Toast-Nachrichten
+    - Klassen-Toggles
+
+
+### Datenmodell
 Events werden aus einer statischen JSON-Datei geladen.
 
+#### `events.json`
 Beispiel:
 ```json
 {
@@ -83,3 +143,42 @@ Beispiel:
   "tags": ["low pressure", "english friendly"],
   "venueName": "Local Pub"
 }
+```
+
+#### ``chats.json`
+- Enthält pro Event eine kleine Auswahl an Demo-Nachrichten
+- Keine echte Chat-Logik
+
+---
+
+## Design-Prinzipien
+- Mobile First
+- Große Typografie
+- Wenige Farben
+- Klare Kontraste
+- Optimiert für Screen Recording im Hochkant-Format
+
+## Verwendung im Pitch-Video
+Die App wird nicht erklärt, sondern gezeigt.  
+  
+Typischer Recording-Ablauf:
+1. `ìndex.html` öffnen
+2. Standort erscheint
+3. Event-Marker poppen auf
+4. Event anklicken
+5. "Teilnehmen"
+6. Chat kurz scrollen
+7. Ende
+
+Dauer des App-Segments im Video: **20-30 Sekunden**
+
+## Setup & Nutzung
+### Lokal starten
+- Dateien direkt im Browser öffnen  
+**oder**
+- Lokalen Server nutzen
+
+### Hinweis
+Diese Web-App ist **bewusst unvollständig**.  
+Ihr Zweck ist es, eine Idee **erlebbar zu machen**, nicht sie technisch ausszubauen.  
+> Wenn der Pitch überzeugt, hat die App ihren Zweck erfüllt.
