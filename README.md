@@ -72,17 +72,17 @@ connactiv/
 │  ├─ explore.css         # Styles für index.html (Karte & Bottom Sheet)  
 │  └─ chat.css            # Styles für chat.html (Chat Preview)
 │  
-├─ js/
+├─ js/  
 │  ├─ explore.js          # Kartenlogik, Events, Bottom Sheet  
 │  ├─ chat.js             # Chat-Demo-Logik  
 │  ├─ geo.js              # Geodistanz-Berechnung & Nearby-Filter  
 │  └─ ui.js               # UI-Helfer (Animationen, Toggles)  
 │  
-├─ data/
+├─ data/  
 │  ├─ events.json         # Statische Event-Daten (Mock)  
 │  └─ chats.json          # Statische Chat-Nachrichten (Mock)  
 │  
-└─ pitch/
+└─ pitch/  
    └─ skript.md           # Skript für das Pitch-Video  
 
 ---
