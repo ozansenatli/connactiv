@@ -85,5 +85,7 @@ function render(messages) {
     const messages = (eventId && chats[eventId])
         ? chats[eventId]
         : (chats["default"] ?? []);
-    render([systemIntro, ...messages]);
+
+    const cleanedMessages = messages.filter(m => m.type !== "system");
+    render([systemIntro, ...cleanedMessages]);
 })();
