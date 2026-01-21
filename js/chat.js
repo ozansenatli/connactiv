@@ -5,8 +5,18 @@ async function loadChats() {
 }
 
 function getEventIdFromUrl() {
+  // 1) Erst versuchen: Query (?event=...)
   const params = new URLSearchParams(window.location.search);
-  return params.get("event");
+  const q = params.get("event");
+  if (q) return q;
+
+  // 2) Dann: Hash (#event=...)
+  const hash = window.location.hash.startsWith("#")
+    ? window.location.hash.slice(1)
+    : window.location.hash;
+
+  const hashParams = new URLSearchParams(hash);
+  return hashParams.get("event");
 }
 
 function render(messages) {

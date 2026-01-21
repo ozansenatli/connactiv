@@ -124,5 +124,5 @@ closeSheetBtn.addEventListener("click", closeSheet);
 sheetBackdrop.addEventListener("click", closeSheet);
 joinBtn.addEventListener("click", () => {
     if (!selectedEventId) return;
-    window.location.href = `./chat.html?event=${encodeURIComponent(selectedEventId)}`;
+    window.location.href = `./chat.html#event=${encodeURIComponent(selectedEventId)}`;
 });
