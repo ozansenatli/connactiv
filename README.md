@@ -150,7 +150,7 @@ Beispiel:
 }
 ```
 
-#### ``chats.json`
+#### `chats.json`
 - Enthält pro Event eine kleine Auswahl an Demo-Nachrichten
 - Keine echte Chat-Logik
 
