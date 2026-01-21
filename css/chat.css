@@ -34,13 +34,11 @@
 }
 
 .chat-main {
-    flex: 1;
-    overflow: auto;
-    padding: 12px, 14px;
-    background: #f6f7f9;
-
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  min-height: 0;     /* wichtig für flexbox scroll */
+  overflow-y: auto;   /* nur hier scrollen */
+  padding: 12px 14px;
+  background: #f6f7f9;
 }
 
 .messages {
