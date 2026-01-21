@@ -59,7 +59,7 @@ function render(messages) {
 (async function init() {
     const eventId = getEventIdFromUrl();
     const chatTitleEl = document.getElementById("chatTitle");
-
+    const chatSubtitleEl = document.getElementById("chatSubtitle");
     // Event-Titel auflösen
     let eventTitle = "Event Chat";
 
@@ -86,6 +86,17 @@ function render(messages) {
         ? chats[eventId]
         : (chats["default"] ?? []);
 
+    const otherCount = new Set(
+        messages
+            .filter(m => m.from && m.from !== "me" && m.type !== "system")
+            .map(m => m.from)
+    ).size;
+
+    const memberCount = 1 + otherCount; // +1 für "me"
+
+    if (chatSubtitleEl) {
+        chatSubtitleEl.textContent = `${memberCount} Teilnehmer`;
+    }
     const cleanedMessages = messages.filter(m => m.type !== "system");
     render([systemIntro, ...cleanedMessages]);
 })();
