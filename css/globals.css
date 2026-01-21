@@ -1,0 +1,8 @@
+/* css/globals.css */
+
+
+/* verhindert Seiten-Scroll */
+body.no-scroll {
+  overflow: hidden;
+  touch-action: none;
+}
