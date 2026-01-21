@@ -25,6 +25,15 @@ function openSheet(ev) {
     sheetBackdrop.setAttribute("aria-hidden", "false");
 
     document.body.classList.add("no-scroll");
+
+    // Leaflet Map sperren
+    map.dragging.disable();
+    map.scrollWheelZoom.disable();
+    map.doubleClickZoom.disable();
+    map.boxZoom.disable();
+    map.keyboard.disable();
+    map.touchZoom.disable();
+    if (map.tap) map.tap.disable(); // Mobile
 }
 
 function closeSheet() {
@@ -35,6 +44,15 @@ function closeSheet() {
     sheetBackdrop.setAttribute("aria-hidden", "true");
 
     document.body.classList.remove("no-scroll");
+
+// Leaflet Map entsperren
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+    map.doubleClickZoom.enable();
+    map.boxZoom.enable();
+    map.keyboard.enable();
+    map.touchZoom.enable();
+    if (map.tap) map.tap.enable(); // Mobile
 }
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
