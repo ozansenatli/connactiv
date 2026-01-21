@@ -57,7 +57,7 @@ Alles ist **UI-only** und bewusst vereinfacht.
 
 ---
 
-## Tech-Stack (empfohlen)
+## Tech-Stack
 
 - Frontend: HTML/CSS/JS **oder** React + Vite
 - Karte: Leaflet.js + OpenStreetMap
