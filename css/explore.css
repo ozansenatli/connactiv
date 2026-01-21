@@ -33,7 +33,7 @@
     z-index: 1001;
 }
 
-.bottom-sheet.hidden {
+.bottom-sheet--hidden {
     transform: translateY(110%);
 }
 
@@ -45,6 +45,6 @@
     z-index: 1000;
 }
 
-.backdrop.hidden {
+.backdrop--hidden {
     display: none;
 }
