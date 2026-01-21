@@ -154,6 +154,10 @@ Beispiel:
 - Enthält pro Event eine kleine Auswahl an Demo-Nachrichten
 - Keine echte Chat-Logik
 
+### Project-Dokumentation
+#### `workflow.md`
+- Beschreibt den konkreten Umsetzungs- und Arbeitsplan für die Web-App.
+
 ---
 
 ## Design-Prinzipien
