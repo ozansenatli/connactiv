@@ -1,0 +1,4 @@
+[
+    {"id": "event-1", "title": "Pub Quiz Night", "lat": 52.5208, "lng": 13.4095, "startTime": "Heute 20:00", "attendeesCount": 8},
+    {"id": "event-2", "title": "Techno Bar Meetup", "lat": 52.5175, "lng": 13.3940, "startTime":"Heute 22:00", "attendeesCount": 21}
+]
