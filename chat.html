@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Connactiv - Chat</title>
+
+        <link rel="stylesheet" href="./css/reset.css" />
+        <link rel="stylesheet" href="./css/globals.css" />
+        <link rel="stylesheet" href="./css/chat.css" />
+    </head>
+
+    <body>
+        <div class"app">
+            <header class="app-header">
+                <a class="back-link" href="./index.html" aria-label="Zurück zur Karte">←</a>
+                <div class="chat-header">
+                    <div id="chatTitle" class="chat-title">Event Chat</div>
+                    <div class="chat-subtitle">Demo - Vor dem Event connecten</div>
+                </div>
+            </header>
+
+            <main class="chat-main">
+                <div id="chatMessages" class="messages" aria-label="Chat Nachrichten"></div>
+            </main>
+
+            <footer class="chat-input">
+                <input type="text" placeholder="Nachricht(Demo)" disabled />
+                <button type="button" disabled>Senden</button>
+            </footer>
+        </div>
+
+        <script src="./js/chat.js" defer></script>
+    </body>
+</html>
