@@ -23,6 +23,8 @@ function openSheet(ev) {
 
     bottomSheet.setAttribute("aria-hidden", "false");
     sheetBackdrop.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("no-scroll");
 }
 
 function closeSheet() {
@@ -31,6 +33,8 @@ function closeSheet() {
 
     bottomSheet.setAttribute("aria-hidden", "true");
     sheetBackdrop.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("no-scroll");
 }
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
