@@ -58,7 +58,7 @@ Alle Features sind **bewusst vereinfacht** und dienen ausschließlich der Demons
 ---
 
 ## Projektstruktur 
-connactiv/
+connactiv/  
 ├─ README.md              # Projektbeschreibung & Setup  
 ├─ index.html             # Hauptscreen: Explore / Kartenansicht  
 ├─ chat.html              # Chat Preview (Demo)  
