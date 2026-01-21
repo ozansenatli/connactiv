@@ -4,6 +4,12 @@ async function loadChats() {
   return res.json();
 }
 
+async function loadEvents() {
+  const res = await fetch("./data/events.json");
+  if (!res.ok) throw new Error("events.json konnte nicht geladen werden");
+  return res.json();
+}
+
 function getEventIdFromUrl() {
   // 1) Erst versuchen: Query (?event=...)
   const params = new URLSearchParams(window.location.search);
@@ -52,13 +58,28 @@ function render(messages) {
 
 (async function init() {
   const eventId = getEventIdFromUrl();
+  const chatTitleEl = document.getElementById("chatTitle");
 
-  const chatTitle = document.getElementById("chatTitle");
-  chatTitle.textContent = eventId ? `Chat – ${eventId}` : "Event Chat";
+  // 1) Event-Titel auflösen
+  let eventTitle = "Event Chat";
 
-  const data = await loadChats();
+  if (eventId) {
+    try {
+      const events = await loadEvents();
+      const match = events.find(e => e.id === eventId);
+      if (match) eventTitle = match.title;
+    } catch (e) {
+      console.warn("Event-Titel konnte nicht geladen werden");
+    }
+  }
 
-  // Erwartet: { "<event-id>": [ ...messages ] }
-  const messages = (eventId && data[eventId]) ? data[eventId] : (data["default"] ?? []);
+  chatTitleEl.textContent = eventTitle;
+
+  // 2) Chat-Nachrichten laden
+  const chats = await loadChats();
+  const messages = (eventId && chats[eventId])
+    ? chats[eventId]
+    : (chats["default"] ?? []);
+
   render(messages);
 })();
