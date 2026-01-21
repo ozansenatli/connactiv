@@ -40,8 +40,21 @@ function render(messages) {
 
     const bubble = document.createElement("div");
     bubble.className = `msg ${m.from === "me" ? "msg--me" : "msg--other"}`;
-    bubble.textContent = m.text;
 
+    // Name (nur anzeigen, wenn nicht "me")
+    if (m.from && m.from !== "me") {
+        const nameEl = document.createElement("div");
+        nameEl.className = "msg-name";
+        nameEl.textContent = m.from;
+        bubble.appendChild(nameEl);
+    }
+    // Text
+    const textEl = document.createElement("div");
+    textEl.className = "msg-text";
+    textEl.textContent = m.text;
+    bubble.appendChild(textEl);
+
+    // Zeit
     if (m.time) {
         const meta = document.createElement("div");
         meta.className = "msg-meta";
