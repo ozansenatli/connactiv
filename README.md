@@ -59,26 +59,31 @@ Alle Features sind **bewusst vereinfacht** und dienen ausschließlich der Demons
 
 ## Projektstruktur 
 connactiv/
-├─ README.md
-├─ index.html            # Hauptscreen: Explore / Kartenansicht
-├─ chat.html             # Chat Preview (Demo)
-├─ assets/
-│  └─ logo.svg           # Logo / Branding
-├─ css/
-│  ├─ reset.css          # CSS Reset (Browser-Defaults entfernen)
-│  ├─ globals.css        # Globale Styles (Farben, Typografie, Layout)
-│  ├─ explore.css        # Styles für index.html (Karte & Bottom Sheet)
-│  └─ chat.css           # Styles für chat.html (Chat Preview)
+├─ README.md              # Projektbeschreibung & Setup  
+├─ index.html             # Hauptscreen: Explore / Kartenansicht  
+├─ chat.html              # Chat Preview (Demo)  
+│  
+├─ assets/  
+│  └─ logo.svg            # Logo / Branding  
+│  
+├─ css/  
+│  ├─ reset.css           # CSS Reset (Browser-Defaults entfernen)  
+│  ├─ globals.css         # Globale Styles (Farben, Typografie, Layout)  
+│  ├─ explore.css         # Styles für index.html (Karte & Bottom Sheet)  
+│  └─ chat.css            # Styles für chat.html (Chat Preview)
+│  
 ├─ js/
-│  ├─ explore.js         # Kartenlogik, Events, Bottom Sheet
-│  ├─ chat.js            # Chat-Demo-Logik
-│  ├─ geo.js             # Geodistanz-Berechnung & Nearby-Filter
-│  └─ ui.js              # UI-Helfer (Animationen, Toggles)
+│  ├─ explore.js          # Kartenlogik, Events, Bottom Sheet  
+│  ├─ chat.js             # Chat-Demo-Logik  
+│  ├─ geo.js              # Geodistanz-Berechnung & Nearby-Filter  
+│  └─ ui.js               # UI-Helfer (Animationen, Toggles)  
+│  
 ├─ data/
-│  ├─ events.json        # Statische Event-Daten (Mock)
-│  └─ chats.json         # Statische Chat-Nachrichten (Mock)
+│  ├─ events.json         # Statische Event-Daten (Mock)  
+│  └─ chats.json          # Statische Chat-Nachrichten (Mock)  
+│  
 └─ pitch/
-   └─ skript.md          # Skript für das Pitch-Video
+   └─ skript.md           # Skript für das Pitch-Video  
 
 ---
 
