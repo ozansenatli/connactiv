@@ -1,8 +1,10 @@
 .app {
-    height: 1000dvh;
-    display: flex;
-    flex-direction: column;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Verhindert Scrollen des gesamten App-Containers */
 }
+
 
 .app-header {
     display: flex;
