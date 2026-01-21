@@ -13,7 +13,11 @@ const eventBadge = document.getElementById("eventBadge");
 
 const closeSheetBtn = document.getElementById("closeSheetBtn");
 
+const joinBtn = document.getElementById("joinBtn");
+let selectedEventId = null;
+
 function openSheet(ev) {
+    selectedEventId = ev.id;
     eventTitle.textContent = ev.title;
     eventSub.textContent = `${ev.startTime ?? ""}`;
     eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
@@ -118,3 +122,7 @@ function addEventMarkers(events) {
 */
 closeSheetBtn.addEventListener("click", closeSheet);
 sheetBackdrop.addEventListener("click", closeSheet);
+joinBtn.addEventListener("click", () => {
+    if (!selectedEventId) return;
+    window.location.href = `./chat.html?event=${encodeURIComponent(selectedEventId)}`;
+});
