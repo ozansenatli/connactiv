@@ -1,32 +1,24 @@
 // js/explore.js
 const DEFAULT_CENTER = [52.5200, 13.4050]; // Berlin
 const DEFAULT_ZOOM = 14;
+
 let currentUserLatLng = DEFAULT_CENTER;
+let fallbackTimer = null;
+
 const TAG_CLASS_MAP = {
-  // Preis / Free
   "gratis": "green",
   "free": "green",
-
-  // Mood / Social
   "low pressure": "blue",
   "bring a friend": "blue",
   "casual": "blue",
   "chill": "teal",
-
-  // Language
   "english friendly": "purple",
-
-  // Occasion
   "party": "rose",
   "night": "rose",
   "afterwork": "amber",
-
-  // Type
   "meetup": "slate",
   "beginner friendly": "green",
   "sports": "teal",
-
-  // Status
   "coming soon": "amber"
 };
 
@@ -56,19 +48,15 @@ function collectUniqueTags(events) {
 }
 
 function applyGradientStyleByIndex(el, idx, total) {
-    // idx: 0..total-1, wir mappen auf 0..1
     const t = total <= 1 ? 0 : idx / (total - 1);
 
-    // wir mappen t auf Palette-Intervalle
     const n = CHIP_GRADIENT.length;
     const scaled = t * (n - 1);
     const i = Math.floor(scaled);
     const j = Math.min(i + 1, n - 1);
     const a = scaled - i;
 
-    // lineare Interpolation auf rgba-Strings wäre aufwendig,
-    // daher nehmen wir einen pragmatischen Ansatz:
-    // wir “snapen” sanft über die Palette, wirkt trotzdem wie Verlauf.
+
     const pick = a < 0.5 ? CHIP_GRADIENT[i] : CHIP_GRADIENT[j];
 
     el.style.setProperty("--chip-bg", pick.bg);
@@ -120,16 +108,13 @@ const eventTitle = document.getElementById("eventTitle");
 const eventSub = document.getElementById("eventSub");
 const eventBadge = document.getElementById("eventBadge");
 const filterBar = document.getElementById("filterBar");
-
 const closeSheetBtn = document.getElementById("closeSheetBtn");
-
 const statusPill = document.getElementById("statusPill");
-
 const joinBtn = document.getElementById("joinBtn");
+
 let selectedEvent = null;
 
 function distanceMeters(a, b) {
-    // a, b = [lat, lng]
     const R = 6371000; // Erdradius in Metern
     const toRad = (deg) => (deg * Math.PI) / 180;
 
@@ -155,41 +140,64 @@ function formatDistance(meters) {
     return `${(meters / 1000).toFixed(1).replace(".", ",")} km entfernt`;
 }
 
-function openSheet(ev) {
-    const fallbackId = `dummy-${Math.round(ev.lat * 100000)}-${Math.round(ev.lng * 100000)}`;
-    selectedEvent = {...ev, id: ev.id || fallbackId};
-    eventTitle.textContent = ev.title;
-    const d = distanceMeters(currentUserLatLng, [ev.lat, ev.lng]);
-    eventSub.textContent = `${ev.startTime ?? ""} • ${formatDistance(d)}`;
+function lockMap() {
+    map.dragging.disable();
+    map.scrollWheelZoom.disable();
+    map.doubleClickZoom.disable();
+    map.boxZoom.disable();
+    map.keyboard.disable();
+    map.touchZoom.disable();
+    if (map.tap) map.tap.disable();
+}
 
+function unlockMap() {
+    map.dragging.enable();
+    map.scrollWheelZoom.enable();
+    map.doubleClickZoom.enable();
+    map.boxZoom.enable();
+    map.keyboard.enable();
+    map.touchZoom.enable();
+    if (map.tap) map.tap.enable();
+}
+
+
+function openSheet(ev) {
+    if (!bottomSheet || !sheetBackdrop) return;
+
+    const fallbackId = `dummy-${Math.round(ev.lat * 100000)}-${Math.round(ev.lng * 100000)}`;
+    selectedEvent = { ...ev, id: ev.id || fallbackId };
+
+    if (eventTitle) eventTitle.textContent = ev.title ?? "Event";
+    if (eventSub) {
+        const d = distanceMeters(currentUserLatLng, [ev.lat, ev.lng]);
+        eventSub.textContent = `${ev.startTime ?? ""} • ${formatDistance(d)}`;
+    }
+    if (eventBadge) eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
+
+    // Tags (Bottom Sheet) im gleichen Gradient-Look wie Header
     if (eventTagsEl) {
         eventTagsEl.innerHTML = "";
-
         const tags = Array.isArray(ev.tags) ? ev.tags : [];
         const limited = tags.slice(0, 6);
 
         limited.forEach((t, index) => {
-            const pill = document.createElement("span");
-            pill.className = "tag tag--grad";
+        const pill = document.createElement("span");
+        pill.className = "tag tag--grad";
+        applyGradientStyleByIndex(pill, index, limited.length);
 
-            applyGradientStyleByIndex(pill, index, limited.length);
+        const dot = document.createElement("span");
+        dot.className = "tag-dot";
+        dot.setAttribute("aria-hidden", "true");
 
-            const dot = document.createElement("span");
-            dot.className = "tag-dot";
-            dot.setAttribute("aria-hidden", "true");
+        const text = document.createElement("span");
+        text.textContent = t;
 
-            const text = document.createElement("span");
-            text.textContent = t;
+        pill.appendChild(dot);
+        pill.appendChild(text);
 
-            pill.appendChild(dot);
-            pill.appendChild(text);
-
-            eventTagsEl.appendChild(pill);
+        eventTagsEl.appendChild(pill);
         });
     }
-
-
-    eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
 
     bottomSheet.classList.remove("bottom-sheet--hidden");
     sheetBackdrop.classList.remove("backdrop--hidden");
@@ -198,18 +206,12 @@ function openSheet(ev) {
     sheetBackdrop.setAttribute("aria-hidden", "false");
 
     document.body.classList.add("no-scroll");
-
-    // Leaflet Map sperren
-    map.dragging.disable();
-    map.scrollWheelZoom.disable();
-    map.doubleClickZoom.disable();
-    map.boxZoom.disable();
-    map.keyboard.disable();
-    map.touchZoom.disable();
-    if (map.tap) map.tap.disable(); // Mobile
+    lockMap();
 }
 
 function closeSheet() {
+    if (!bottomSheet || !sheetBackdrop) return;
+
     bottomSheet.classList.add("bottom-sheet--hidden");
     sheetBackdrop.classList.add("backdrop--hidden");
 
@@ -217,62 +219,13 @@ function closeSheet() {
     sheetBackdrop.setAttribute("aria-hidden", "true");
 
     document.body.classList.remove("no-scroll");
+    unlockMap();
+    }
 
-// Leaflet Map entsperren
-    map.dragging.enable();
-    map.scrollWheelZoom.enable();
-    map.doubleClickZoom.enable();
-    map.boxZoom.enable();
-    map.keyboard.enable();
-    map.touchZoom.enable();
-    if (map.tap) map.tap.enable(); // Mobile
-}
-
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '&copy; OpenStreetMap contributors',
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
     maxZoom: 19,
 }).addTo(map);
-
-function setFallback() {
-    const user = DEFAULT_CENTER;
-    currentUserLatLng = user;
-    L.circleMarker(user, {
-        radius: 8,
-        color: "#1452eb",
-        weight: 2,
-        fillOpacity: 0.8,
-    }).addTo(map);
-    map.setView(user, DEFAULT_ZOOM);
-}
-
-function setUserLocation() {
-    showFallbackAfter2s();
-
-    if (!navigator.geolocation) return;
-
-    navigator.geolocation.getCurrentPosition(
-        (pos) => {
-            if (!statusPill || statusPill.style.display === "none") return;
-
-            const user = [pos.coords.latitude, pos.coords.longitude];
-
-            currentUserLatLng = user;
-            L.circleMarker(user, {
-                radius: 8,
-                color: "#1452eb",
-                weight: 2,
-                fillOpacity: 0.8,
-            }).addTo(map);
-            map.setView(user, DEFAULT_ZOOM);
-            hideStatusPill();
-        },
-        () => {
-            // Fehler: Fallback
-
-        },
-        {enableHighAccuracy: true, timeout: 1500}
-    );
-}
 
 function hideStatusPill() {
     if (!statusPill) return;
@@ -283,12 +236,55 @@ function hideStatusPill() {
     }, 200);
 }
 
+function setFallback() {
+    const user = DEFAULT_CENTER;
+    currentUserLatLng = user;
+    L.circleMarker(user, {
+        radius: 8,
+        color: "#1452eb",
+        weight: 2,
+        fillOpacity: 0.8,
+    }).addTo(map);
+
+    map.setView(user, DEFAULT_ZOOM);
+}
+
 function showFallbackAfter2s() {
-    // Nach 2 Sekunden: Dummy-Standort + Status weg
-    setTimeout(() => {
+    // Timer merken, um ihn bei Erfolg abbrechen zu können
+    fallbackTimer = setTimeout(() => {
         setFallback();
         hideStatusPill();
     }, 2000);
+}
+
+function setUserLocation() {
+    showFallbackAfter2s();
+
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+        if (fallbackTimer) clearTimeout(fallbackTimer);
+
+        if (statusPill && statusPill.style.display === "none") return;
+
+        const user = [pos.coords.latitude, pos.coords.longitude];
+        currentUserLatLng = user;
+
+        L.circleMarker(user, {
+            radius: 8,
+            color: "#1452eb",
+            weight: 2,
+            fillOpacity: 0.8,
+        }).addTo(map);
+
+        map.setView(user, DEFAULT_ZOOM);
+        hideStatusPill();
+        },
+        () => {
+        },
+        { enableHighAccuracy: true, timeout: 1500 }
+    );
 }
 
 async function loadEvents(){
@@ -306,7 +302,7 @@ function addEventMarkers(events) {
             const marker = L.marker([ev.lat, ev.lng]).addTo(map);
 
             marker.on("click", () => openSheet(ev));
-        }, 120 + i * 40); // Pop-in Effekt bleibt
+        }, 120 + i * 40); 
     });
 }
 
@@ -322,16 +318,14 @@ function addEventMarkers(events) {
     }, 2000);
 })();
 
-/*  ===============================================
-    Bottom Sheet - Close Handling
-    ===============================================
-*/
-closeSheetBtn.addEventListener("click", closeSheet);
-sheetBackdrop.addEventListener("click", closeSheet);
-joinBtn.addEventListener("click", () => {
-    if (!selectedEvent?.id) return;
+if (closeSheetBtn) closeSheetBtn.addEventListener("click", closeSheet);
+if (sheetBackdrop) sheetBackdrop.addEventListener("click", closeSheet);
 
-    const attendees = Number(selectedEvent.attendeesCount ?? 0);
-
-    window.location.href = `./chat.html?event=${encodeURIComponent(selectedEvent.id)}&attendees=${encodeURIComponent(attendees)}`;
-});
+if (joinBtn) {
+    joinBtn.addEventListener("click", () => {
+        if (!selectedEvent?.id) return;
+        const attendees = Number(selectedEvent.attendeesCount ?? 0);
+        window.location.href =
+        `./chat.html?event=${encodeURIComponent(selectedEvent.id)}&attendees=${encodeURIComponent(attendees)}`;
+    });
+}
