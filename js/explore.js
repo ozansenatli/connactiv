@@ -275,25 +275,13 @@ function addEventMarkers(events) {
 
     events.forEach((ev, i) => {
         setTimeout(() => {
-            const isDummy = ev.isDummy === true;
-
-            let marker;
-            if (isDummy) {
-                marker = L.circleMarker([ev.lat, ev.lng], {
-                    radius: 7,
-                    color: "#9aa0a6",
-                    weight: 2,
-                    fillOpacity: 0.65,
-                }).addTo(map);
-            } else {
-                marker = L.marker([ev.lat, ev.lng]).addTo(map);
-            }
+            // Alle Events (auch Dummys) bekommen den gleichen Marker-Look
+            const marker = L.marker([ev.lat, ev.lng]).addTo(map);
 
             marker.on("click", () => openSheet(ev));
-        }, 120 + i*40); // Start nach 120ms, dann alle 40ms ein Marker
+        }, 120 + i * 40); // Pop-in Effekt bleibt
     });
 }
-
 
 (async function init() {
     setUserLocation();
