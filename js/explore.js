@@ -1,38 +1,74 @@
 // js/explore.js
+
 const DEFAULT_CENTER = [52.5200, 13.4050]; // Berlin
 const DEFAULT_ZOOM = 14;
 
 let currentUserLatLng = DEFAULT_CENTER;
-let fallbackTimer = null;
 
 const TAG_CLASS_MAP = {
-  "gratis": "green",
-  "free": "green",
-  "low pressure": "blue",
-  "bring a friend": "blue",
-  "casual": "blue",
-  "chill": "teal",
-  "english friendly": "purple",
-  "party": "rose",
-  "night": "rose",
-  "afterwork": "amber",
-  "meetup": "slate",
-  "beginner friendly": "green",
-  "sports": "teal",
-  "coming soon": "amber"
+    "gratis": "green",
+    "free": "green",
+    "low pressure": "blue",
+    "bring a friend": "blue",
+    "casual": "blue",
+    "chill": "teal",
+    "english friendly": "purple",
+    "party": "rose",
+    "night": "rose",
+    "afterwork": "amber",
+    "meetup": "slate",
+    "beginner friendly": "green",
+    "sports": "teal",
+    "coming soon": "amber",
 };
 
+// ------------------------------------------------------------
+// "Natürliches" Verlaufspalette (links -> rechts)
+// ------------------------------------------------------------
 const CHIP_GRADIENT = [
-    { bg: "rgba(245, 158, 11, 0.16)", fg: "rgba(154, 52, 18, 0.92)" }, // warm amber
-    { bg: "rgba(34, 197, 94, 0.16)",  fg: "rgba(22, 101, 52, 0.92)" }, // green
-    { bg: "rgba(59, 130, 246, 0.16)", fg: "rgba(30, 64, 175, 0.92)" }, // blue
-    { bg: "rgba(168, 85, 247, 0.16)", fg: "rgba(107, 33, 168, 0.92)" }, // purple
-    { bg: "rgba(236, 72, 153, 0.14)", fg: "rgba(157, 23, 77, 0.92)" }, // pink
+    { bg: "rgba(245, 158, 11, 0.14)", fg: "rgba(154, 52, 18, 0.92)" },  // amber
+    { bg: "rgba(34, 197, 94, 0.14)",  fg: "rgba(22, 101, 52, 0.92)" },  // green
+    { bg: "rgba(20, 184, 166, 0.14)", fg: "rgba(15, 118, 110, 0.92)" }, // teal
+    { bg: "rgba(59, 130, 246, 0.14)", fg: "rgba(30, 64, 175, 0.92)" },  // blue
+    { bg: "rgba(168, 85, 247, 0.14)", fg: "rgba(107, 33, 168, 0.92)" }, // purple
+    { bg: "rgba(236, 72, 153, 0.12)", fg: "rgba(157, 23, 77, 0.92)" },  // rose
 ];
 
-function getTagClass(tag) {
-    const key = String(tag || "").trim().toLowerCase();
-    return TAG_CLASS_MAP[key] || "slate";
+// ------------------------------------------------------------
+// DOM
+// ------------------------------------------------------------
+const map = L.map("map", { zoomControl: true }).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+
+const bottomSheet   = document.getElementById("bottomSheet");
+const sheetBackdrop = document.getElementById("sheetBackdrop");
+
+const eventTitleEl  = document.getElementById("eventTitle");
+const eventSubEl    = document.getElementById("eventSub");
+const eventBadgeEl  = document.getElementById("eventBadge");
+const eventTagsEl   = document.getElementById("eventTags");
+
+const filterBar     = document.getElementById("filterBar");
+
+const closeSheetBtn = document.getElementById("closeSheetBtn");
+const joinBtn       = document.getElementById("joinBtn");
+
+const statusPill    = document.getElementById("statusPill");
+
+// ------------------------------------------------------------
+// State
+// ------------------------------------------------------------
+let selectedEvent = null;
+
+let TAG_STYLE_BY_TAG = {}; 
+let ORDERED_TAGS = [];     
+
+let fallbackTimer = null; 
+
+// ------------------------------------------------------------
+// Helpers
+// ------------------------------------------------------------
+function normalizeTag(tag) {
+    return String(tag || "").trim().toLowerCase();
 }
 
 function collectUniqueTags(events) {
@@ -40,82 +76,45 @@ function collectUniqueTags(events) {
     (events || []).forEach((ev) => {
         const tags = Array.isArray(ev.tags) ? ev.tags : [];
         tags.forEach((t) => {
-            const tag = String(t || "").trim();
-            if (tag) set.add(tag);
+            const cleaned = String(t || "").trim();
+            if (cleaned) set.add(cleaned);
         });
     });
     return Array.from(set);
 }
 
-function applyGradientStyleByIndex(el, idx, total) {
+function pickGradientColorByIndex(idx, total) {
     const t = total <= 1 ? 0 : idx / (total - 1);
-
     const n = CHIP_GRADIENT.length;
     const scaled = t * (n - 1);
     const i = Math.floor(scaled);
     const j = Math.min(i + 1, n - 1);
     const a = scaled - i;
 
-
-    const pick = a < 0.5 ? CHIP_GRADIENT[i] : CHIP_GRADIENT[j];
-
-    el.style.setProperty("--chip-bg", pick.bg);
-    el.style.setProperty("--chip-fg", pick.fg);
+    return a < 0.5 ? CHIP_GRADIENT[i] : CHIP_GRADIENT[j];
 }
 
-function renderFilterChips(tags) {
-    if (!filterBar) return;
-
-    filterBar.innerHTML = "";
-
-    // "Alle" Chip
-    const allBtn = document.createElement("button");
-    allBtn.type = "button";
-    allBtn.className = "chip chip--slate chip--active";
-    allBtn.textContent = "Alle";
-    filterBar.appendChild(allBtn);
-
-    // Tags alphabetisch
-    const sorted = [...tags].sort((a, b) => a.localeCompare(b, "de"));
-
-    sorted.forEach((t, index) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "chip chip--grad";
-        btn.textContent = t;
-
-        applyGradientStyleByIndex(btn, index, sorted.length);
-
-        filterBar.appendChild(btn);
+function buildTagStyleMapFromTags(tagsSorted) {
+    const map = {};
+    tagsSorted.forEach((t, idx) => {
+        const pick = pickGradientColorByIndex(idx, tagsSorted.length);
+        map[t] = pick;
     });
-
-    // Click-Handling nur einmal binden
-    filterBar.onclick = (e) => {
-        const btn = e.target.closest("button.chip");
-        if (!btn) return;
-
-        filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
-        btn.classList.add("chip--active");
-    };
+    return map;
 }
 
-const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+function applyTagStyleVars(el, style) {
+    if (!el || !style) return;
 
-const bottomSheet = document.getElementById("bottomSheet");
-const sheetBackdrop = document.getElementById("sheetBackdrop");
-const eventTagsEl = document.getElementById("eventTags");
-const eventTitle = document.getElementById("eventTitle");
-const eventSub = document.getElementById("eventSub");
-const eventBadge = document.getElementById("eventBadge");
-const filterBar = document.getElementById("filterBar");
-const closeSheetBtn = document.getElementById("closeSheetBtn");
-const statusPill = document.getElementById("statusPill");
-const joinBtn = document.getElementById("joinBtn");
 
-let selectedEvent = null;
+    el.style.setProperty("--chip-bg", style.bg);
+    el.style.setProperty("--chip-fg", style.fg);
+    el.style.setProperty("--tag-bg", style.bg);
+    el.style.setProperty("--tag-fg", style.fg);
+}
 
 function distanceMeters(a, b) {
-    const R = 6371000; // Erdradius in Metern
+    const R = 6371000;
     const toRad = (deg) => (deg * Math.PI) / 180;
 
     const lat1 = toRad(a[0]);
@@ -126,10 +125,7 @@ function distanceMeters(a, b) {
     const sinDLat = Math.sin(dLat / 2);
     const sinDLng = Math.sin(dLng / 2);
 
-    const h =
-        sinDLat * sinDLat +
-        Math.cos(lat1) * Math.cos(lat2) * sinDLng * sinDLng;
-
+    const h = sinDLat * sinDLat + Math.cos(lat1) * Math.cos(lat2) * sinDLng * sinDLng;
     const c = 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
     return R * c;
 }
@@ -160,30 +156,71 @@ function unlockMap() {
     if (map.tap) map.tap.enable();
 }
 
+// ------------------------------------------------------------
+// UI: Header Chips
+// ------------------------------------------------------------
+function renderFilterChips(tagsSorted) {
+    if (!filterBar) return;
 
+    filterBar.innerHTML = "";
+
+    // "Alle" Chip (neutral)
+    const allBtn = document.createElement("button");
+    allBtn.type = "button";
+    allBtn.className = "chip chip--active";
+    allBtn.textContent = "Alle";
+    filterBar.appendChild(allBtn);
+
+    // Tags: Verlauf links -> rechts
+    tagsSorted.forEach((t) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip chip--grad";
+        btn.textContent = t;
+
+        applyTagStyleVars(btn, TAG_STYLE_BY_TAG[t]);
+
+        filterBar.appendChild(btn);
+    });
+
+    filterBar.onclick = (e) => {
+        const btn = e.target.closest("button.chip");
+        if (!btn) return;
+
+        filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
+        btn.classList.add("chip--active");
+
+    };
+}
+
+// ------------------------------------------------------------
+// UI: Bottom Sheet
+// ------------------------------------------------------------
 function openSheet(ev) {
-    if (!bottomSheet || !sheetBackdrop) return;
-
     const fallbackId = `dummy-${Math.round(ev.lat * 100000)}-${Math.round(ev.lng * 100000)}`;
     selectedEvent = { ...ev, id: ev.id || fallbackId };
 
-    if (eventTitle) eventTitle.textContent = ev.title ?? "Event";
-    if (eventSub) {
+    if (eventTitleEl) eventTitleEl.textContent = ev.title ?? "Event";
+    if (eventSubEl) {
         const d = distanceMeters(currentUserLatLng, [ev.lat, ev.lng]);
-        eventSub.textContent = `${ev.startTime ?? ""} • ${formatDistance(d)}`;
+        const start = ev.startTime ?? "";
+        eventSubEl.textContent = start ? `${start} • ${formatDistance(d)}` : formatDistance(d);
     }
-    if (eventBadge) eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
+    if (eventBadgeEl) eventBadgeEl.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
 
-    // Tags (Bottom Sheet) im gleichen Gradient-Look wie Header
+    // Tags (konsistent zu Header)
     if (eventTagsEl) {
         eventTagsEl.innerHTML = "";
-        const tags = Array.isArray(ev.tags) ? ev.tags : [];
-        const limited = tags.slice(0, 6);
 
-        limited.forEach((t, index) => {
+        const tags = Array.isArray(ev.tags) ? ev.tags : [];
+        tags.slice(0, 8).forEach((raw) => {
+        const t = String(raw || "").trim();
+        if (!t) return;
+
         const pill = document.createElement("span");
         pill.className = "tag tag--grad";
-        applyGradientStyleByIndex(pill, index, limited.length);
+
+        applyTagStyleVars(pill, TAG_STYLE_BY_TAG[t] || TAG_STYLE_BY_TAG[ORDERED_TAGS[0]]);
 
         const dot = document.createElement("span");
         dot.className = "tag-dot";
@@ -194,39 +231,42 @@ function openSheet(ev) {
 
         pill.appendChild(dot);
         pill.appendChild(text);
-
         eventTagsEl.appendChild(pill);
         });
     }
 
-    bottomSheet.classList.remove("bottom-sheet--hidden");
-    sheetBackdrop.classList.remove("backdrop--hidden");
+    bottomSheet?.classList.remove("bottom-sheet--hidden");
+    sheetBackdrop?.classList.remove("backdrop--hidden");
 
-    bottomSheet.setAttribute("aria-hidden", "false");
-    sheetBackdrop.setAttribute("aria-hidden", "false");
+    bottomSheet?.setAttribute("aria-hidden", "false");
+    sheetBackdrop?.setAttribute("aria-hidden", "false");
 
     document.body.classList.add("no-scroll");
     lockMap();
 }
 
 function closeSheet() {
-    if (!bottomSheet || !sheetBackdrop) return;
+    bottomSheet?.classList.add("bottom-sheet--hidden");
+    sheetBackdrop?.classList.add("backdrop--hidden");
 
-    bottomSheet.classList.add("bottom-sheet--hidden");
-    sheetBackdrop.classList.add("backdrop--hidden");
-
-    bottomSheet.setAttribute("aria-hidden", "true");
-    sheetBackdrop.setAttribute("aria-hidden", "true");
+    bottomSheet?.setAttribute("aria-hidden", "true");
+    sheetBackdrop?.setAttribute("aria-hidden", "true");
 
     document.body.classList.remove("no-scroll");
     unlockMap();
-    }
+}
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+// ------------------------------------------------------------
+// Map base layer
+// ------------------------------------------------------------
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors",
     maxZoom: 19,
 }).addTo(map);
 
+// ------------------------------------------------------------
+// Location: status pill -> nach 2s weg, dann Dummy; wenn echtes GPS früher kommt, gewinnt GPS.
+// ------------------------------------------------------------
 function hideStatusPill() {
     if (!statusPill) return;
     statusPill.style.opacity = "0";
@@ -239,6 +279,7 @@ function hideStatusPill() {
 function setFallback() {
     const user = DEFAULT_CENTER;
     currentUserLatLng = user;
+
     L.circleMarker(user, {
         radius: 8,
         color: "#1452eb",
@@ -249,8 +290,7 @@ function setFallback() {
     map.setView(user, DEFAULT_ZOOM);
 }
 
-function showFallbackAfter2s() {
-    // Timer merken, um ihn bei Erfolg abbrechen zu können
+function scheduleFallbackAfter2s() {
     fallbackTimer = setTimeout(() => {
         setFallback();
         hideStatusPill();
@@ -258,15 +298,18 @@ function showFallbackAfter2s() {
 }
 
 function setUserLocation() {
-    showFallbackAfter2s();
+    scheduleFallbackAfter2s();
 
     if (!navigator.geolocation) return;
 
     navigator.geolocation.getCurrentPosition(
         (pos) => {
-        if (fallbackTimer) clearTimeout(fallbackTimer);
+        if (!statusPill || statusPill.style.display === "none") return;
 
-        if (statusPill && statusPill.style.display === "none") return;
+        if (fallbackTimer) {
+            clearTimeout(fallbackTimer);
+            fallbackTimer = null;
+        }
 
         const user = [pos.coords.latitude, pos.coords.longitude];
         currentUserLatLng = user;
@@ -282,12 +325,16 @@ function setUserLocation() {
         hideStatusPill();
         },
         () => {
+        // Fehler ignorieren – Fallback-Timer übernimmt
         },
         { enableHighAccuracy: true, timeout: 1500 }
     );
 }
 
-async function loadEvents(){
+// ------------------------------------------------------------
+// Data & Markers
+// ------------------------------------------------------------
+async function loadEvents() {
     const res = await fetch("./data/events.json");
     if (!res.ok) throw new Error("events.json konnte nicht geladen werden");
     return res.json();
@@ -298,34 +345,49 @@ function addEventMarkers(events) {
 
     events.forEach((ev, i) => {
         setTimeout(() => {
-            // Alle Events (auch Dummys) bekommen den gleichen Marker-Look
-            const marker = L.marker([ev.lat, ev.lng]).addTo(map);
+        const marker = L.marker([ev.lat, ev.lng]).addTo(map);
 
-            marker.on("click", () => openSheet(ev));
-        }, 120 + i * 40); 
+    
+        marker.on("click", () => openSheet(ev));
+        }, 120 + i * 40);
     });
 }
 
+// ------------------------------------------------------------
+// Init
+// ------------------------------------------------------------
 (async function init() {
     setUserLocation();
 
     const events = await loadEvents();
 
-    const tags = collectUniqueTags(events);
-    renderFilterChips(tags);
-    setTimeout(() => {
-        addEventMarkers(events);
-    }, 2000);
+    // Tags global vorbereiten (für konsistenten Look überall)
+    ORDERED_TAGS = collectUniqueTags(events).sort((a, b) => a.localeCompare(b, "de"));
+    TAG_STYLE_BY_TAG = buildTagStyleMapFromTags(ORDERED_TAGS);
+
+    renderFilterChips(ORDERED_TAGS);
+
+    // Marker "poppen" nach 2s (wenn Pill verschwindet und Standort gesetzt wurde)
+    setTimeout(() => addEventMarkers(events), 2000);
 })();
 
-if (closeSheetBtn) closeSheetBtn.addEventListener("click", closeSheet);
-if (sheetBackdrop) sheetBackdrop.addEventListener("click", closeSheet);
+// ------------------------------------------------------------
+// Events: Close / Join
+// ------------------------------------------------------------
+closeSheetBtn?.addEventListener("click", closeSheet);
+sheetBackdrop?.addEventListener("click", closeSheet);
 
-if (joinBtn) {
-    joinBtn.addEventListener("click", () => {
-        if (!selectedEvent?.id) return;
-        const attendees = Number(selectedEvent.attendeesCount ?? 0);
-        window.location.href =
-        `./chat.html?event=${encodeURIComponent(selectedEvent.id)}&attendees=${encodeURIComponent(attendees)}`;
-    });
-}
+joinBtn?.addEventListener("click", () => {
+    if (!selectedEvent?.id) return;
+
+    const attendees = Number(selectedEvent.attendeesCount ?? 0);
+
+    const title = selectedEvent.title ?? "";
+    const start = selectedEvent.startTime ?? "";
+
+    window.location.href =
+        `./chat.html?event=${encodeURIComponent(selectedEvent.id)}` +
+        `&attendees=${encodeURIComponent(attendees)}` +
+        `&title=${encodeURIComponent(title)}` +
+        `&start=${encodeURIComponent(start)}`;
+});
