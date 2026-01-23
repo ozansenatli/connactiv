@@ -361,3 +361,9 @@
   background: rgba(0,0,0,0.04);
   border-color: rgba(0,0,0,0.10);
 }
+
+.tag.tag--grad {
+    border: 1px solid rgba(0,0,0,0.08);
+    background: var(--chaip-bg, rgba(0,0,0,0.04));
+    color: var(--chip-fg, rgba(0,0,0,0.82));
+}
