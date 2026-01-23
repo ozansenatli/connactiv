@@ -53,7 +53,7 @@ function renderFilterChips(tags) {
 
     filterBar.innerHTML = "";
 
-    // “Alle” Chip
+    // "Alle" Chip
     const allBtn = document.createElement("button");
     allBtn.type = "button";
     allBtn.className = "chip chip--slate chip--active";
@@ -69,29 +69,20 @@ function renderFilterChips(tags) {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = `chip chip--${cls}`;
-        const dot = document.createElement("span");
-        dot.className = "tag-dot";
-        dot.setAttribute("aria-hidden", "true");
-
-        const text = document.createElement("span");
-        text.textContent = t;
-
-        btn.appendChild(dot);
-        btn.appendChild(text);
+        btn.textContent = t;
 
         filterBar.appendChild(btn);
     });
 
-    // Click Handling: NUR EINMAL registrieren
+    // Click Listener NUR EINMAL
     filterBar.addEventListener("click", (e) => {
         const btn = e.target.closest("button.chip");
         if (!btn) return;
 
         filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
         btn.classList.add("chip--active");
-    }, { once: true });
+    });
 }
-
 
 const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
