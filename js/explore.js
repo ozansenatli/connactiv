@@ -39,20 +39,21 @@ const CHIP_GRADIENT = [
 // ------------------------------------------------------------
 const map = L.map("map", { zoomControl: true }).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
-const bottomSheet   = document.getElementById("bottomSheet");
+const bottomSheet = document.getElementById("bottomSheet");
 const sheetBackdrop = document.getElementById("sheetBackdrop");
 
-const eventTitleEl  = document.getElementById("eventTitle");
-const eventSubEl    = document.getElementById("eventSub");
-const eventBadgeEl  = document.getElementById("eventBadge");
-const eventTagsEl   = document.getElementById("eventTags");
+const eventTitleEl = document.getElementById("eventTitle");
+const eventSubEl = document.getElementById("eventSub");
+const eventBadgeEl = document.getElementById("eventBadge");
+const eventTagsEl = document.getElementById("eventTags");
 
-const filterBar     = document.getElementById("filterBar");
+const filterBar = document.getElementById("filterBar");
 
 const closeSheetBtn = document.getElementById("closeSheetBtn");
-const joinBtn       = document.getElementById("joinBtn");
-
-const statusPill    = document.getElementById("statusPill");
+const joinBtn = document.getElementById("joinBtn");
+const menuBtn = document.getElementById("menuBtn");
+const menuDropdown = document.getElementById("menuDropdown");
+const statusPill = document.getElementById("statusPill");
 
 // ------------------------------------------------------------
 // State
@@ -391,3 +392,65 @@ joinBtn?.addEventListener("click", () => {
         `&title=${encodeURIComponent(title)}` +
         `&start=${encodeURIComponent(start)}`;
 });
+
+// ============================================================
+// Hamburger Dropdown Menu (UI-only)
+// ============================================================
+
+let menuBackdropEl = null;
+
+function openMenu() {
+    if (!menuDropdown || !menuBtn) return;
+
+    menuDropdown.classList.add("menu--open");
+    menuBtn.setAttribute("aria-expanded", "true");
+
+    // Klick außerhalb schließt (über transparentes Backdrop)
+    if (!menuBackdropEl) {
+        menuBackdropEl = document.createElement("div");
+        menuBackdropEl.className = "menu-backdrop";
+        document.body.appendChild(menuBackdropEl);
+        menuBackdropEl.addEventListener("click", closeMenu);
+    } else {
+        menuBackdropEl.classList.remove("menu-backdrop--hidden");
+    }
+}
+
+function closeMenu() {
+    if (!menuDropdown || !menuBtn) return;
+
+    menuDropdown.classList.remove("menu--open");
+    menuBtn.setAttribute("aria-expanded", "false");
+
+    if (menuBackdropEl) {
+        menuBackdropEl.classList.add("menu-backdrop--hidden");
+    }
+}
+
+function toggleMenu() {
+    if (!menuDropdown) return;
+    const isOpen = menuDropdown.classList.contains("menu--open");
+    if (isOpen) closeMenu();
+    else openMenu();
+}
+
+// Button click
+if (menuBtn) {
+    menuBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu();
+    });
+}
+
+// ESC closes
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+});
+
+// Wenn Bottom Sheet öffnet, Menü schließen (sauber)
+const _openSheetOriginal = openSheet;
+openSheet = function(ev) {
+    closeMenu();
+    _openSheetOriginal(ev);
+};
