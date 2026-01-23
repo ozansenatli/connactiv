@@ -35,9 +35,21 @@
                 </button>
             </header>
 
+            <!-- Action Bar -->
+            <div class="action-bar" aria label="Schnellfilter (Demo)"
+                <button class="chip chip--active" type="button">In der Nähe</button>
+                <button class="chip" type="button">Heute</button>
+                <button class="chip" type="button">Party</button>
+                <button class="chip" type="button">Gratis</button>
+                <button class="chip" type="button">Low Pressure</button>
+                <button class="chip" type="button">English Friendly</button>
+            </div>
+
             <!-- Map -->
             <main class="app-main">
-                <div id="map" class="map" role="application" aria-label="Karte mit Events"></div>
+                <div class="map-card">
+                    <div id="map" class="map" aria-label="Karte mit Events"></div>
+                </div>
                 <!-- Lightweigt status pill (optional, can be hidden via CSS) -->
                 <div id="statusPill" class="status-pill" aria-live="polite">
                     Standort wird ermittelt...
