@@ -16,11 +16,11 @@ const closeSheetBtn = document.getElementById("closeSheetBtn");
 const statusPill = document.getElementById("statusPill");
 
 const joinBtn = document.getElementById("joinBtn");
-let selectedEventId = null;
+let selectedEvent = null;
 
 function openSheet(ev) {
-    selectetEvent = ev;
-    selectedEventId = ev.id;
+    const fallbackId = `dummy-${Math.round(ev.lat * 100000)} - ${Math.round(ev.lng * 100000)}`;
+    selectedEvent = {...ev, id: ev.id || fallbackId};
     eventTitle.textContent = ev.title;
     eventSub.textContent = `${ev.startTime ?? ""}`;
     eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
@@ -170,14 +170,9 @@ function addEventMarkers(events) {
 closeSheetBtn.addEventListener("click", closeSheet);
 sheetBackdrop.addEventListener("click", closeSheet);
 joinBtn.addEventListener("click", () => {
-    if (!selectedEventId) return;
+    if (!selectedEvent?.id) return;
 
-    const eventId = selectedEventId;
     const attendees = Number(selectedEvent.attendeesCount ?? 0);
-    const title = selectedEvent.title ?? "Event Chat";
 
-    window.location.href = 
-    `./chat.html?event=${encodeURIComponent(eventId)}` +
-    `&attendees=${encodeURIComponent(String(attendees))}` +
-    `&title=${encodeURIComponent(title)}`;
+    window.location.href = `./chat.html?event=${encodeURIComponent(selectedEvent.id)}&attendees=${encodeURIComponent(attendees)}`;
 });
