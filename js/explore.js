@@ -21,6 +21,52 @@ function getTagClass(tag) {
     return TAG_CLASS_MAP[key] || "blue";
 }
 
+function collectUniqueTags(events) {
+    const set = new Set();
+    (events || []).forEach((ev) => {
+        const tags = Array.isArray(ev.tags) ? ev.tags : [];
+        tags.forEach((t) => {
+            const tag = String(t || "").trim();
+            if (tag) set.add(tag);
+        });
+    });
+    return Array.from(set);
+}
+
+function renderFilterChips(tags) {
+    if (!filterBar) return;
+
+    filterBar.innerHTML = "";
+
+    // Optional: “Alle” Chip vorne dran
+    const allBtn = document.createElement("button");
+    allBtn.type = "button";
+    allBtn.className = "chip chip--active";
+    allBtn.textContent = "Alle";
+    filterBar.appendChild(allBtn);
+
+    // Tags alphabetisch, damit es ruhig aussieht
+    const sorted = [...tags].sort((a, b) => a.localeCompare(b, "de"));
+
+    sorted.forEach((t) => {
+        const cls = getTagClass(t); // nutzt dein TAG_CLASS_MAP
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `chip chip--${cls}`;
+        btn.textContent = t;
+
+        filterBar.appendChild(btn);
+
+        filterBar.addEventListener("click", (e) => {
+            const btn = e.target.closest("button.chip");
+            if (!btn) return;
+
+            filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
+            btn.classList.add("chip--active");
+        });
+    });
+}
 
 const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
@@ -30,6 +76,7 @@ const eventTagsE1 = document.getElementById("eventTags");
 const eventTitle = document.getElementById("eventTitle");
 const eventSub = document.getElementById("eventSub");
 const eventBadge = document.getElementById("eventBadge");
+const filterBar = document.getElementById("filterBar");
 
 const closeSheetBtn = document.getElementById("closeSheetBtn");
 
@@ -201,6 +248,8 @@ function addEventMarkers(events) {
 
     const events = await loadEvents();
 
+    const tags = collectUniqueTags(events);
+    renderFilterChips(tags);
     setTimeout(() => {
         addEventMarkers(events);
     }, 2000);
