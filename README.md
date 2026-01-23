@@ -1,23 +1,24 @@
 # Connactiv – Web-App Mock (Pitch-Demo)
 
 Connactiv ist eine **pitchfähige Mock-Web-App**, die den Kern einer Produktidee demonstriert:  
-Menschen finden **Events in ihrer Nähe** und **connecten sich bereits vor dem Event**, um nicht allein hinzugehen.
+Menschen entdecken **Events in ihrer Nähe** und können sich **bereits vor dem Event vernetzen**, um nicht allein hinzugehen.
 
-Diese App ist **kein fertiges Produkt**, sondern ein **visueller und interaktiver Demonstrator** für ein 2–3-minütiges Pitch-Video im Rahmen eines BWL-Moduls.
+Die App ist **kein Produkt**, sondern ein **visueller und interaktiver Demonstrator** für ein 2–3-minütiges Pitch-Video im Rahmen eines BWL-Moduls.
 
 ---
 
 ## Ziel des Projekts
 
-- Den **Nutzermehrwert** von Connactiv in unter 30 Sekunden verständlich machen
+- Den **Nutzermehrwert von Connactiv in <30 Sekunden** verständlich machen
 - Eine **reale Nutzungssituation simulieren**
-- Im Video zeigen: *So fühlt sich das Produkt an*
+- Im Pitch zeigen: *So fühlt sich das Produkt an*
 
-Nicht-Ziele:
+### Nicht-Ziele
 - Kein Backend
-- Keine echten Nutzer
+- Keine Authentifizierung
 - Keine Live-Daten
 - Keine Monetarisierung
+- Keine technische Skalierung
 
 ---
 
@@ -26,64 +27,73 @@ Nicht-Ziele:
 > Das Problem ist nicht, dass es zu wenige Events gibt.  
 > Das Problem ist, dass man nicht weiß, **mit wem man hingeht**.
 
-Connactiv verbindet Events mit sozialer Anschlussfähigkeit.
+Connactiv verbindet **Events mit sozialer Anschlussfähigkeit**.
 
 ---
 
 ## Demo-Flow (User Journey)
 
 1. Nutzer öffnet Connactiv
-2. Standort wird ermittelt (oder Demo-Fallback)
-3. Karte zeigt Events in der Nähe
-4. Nutzer klickt ein Event an
-5. Event-Detail (Bottom Sheet) öffnet sich
-6. Nutzer klickt „Teilnehmen“
-7. Vorab-Chat (Dummy) wird angezeigt
+2. Standort wird ermittelt  
+   → nach 2 Sekunden Fallback auf Demo-Standort (Berlin)
+3. Karte erscheint, Event-Marker poppen nacheinander auf
+4. Nutzer klickt ein Event
+5. Event-Details öffnen sich im Bottom Sheet
+6. Nutzer klickt **„Teilnehmen“**
+7. Vorab-Chat (statisch) wird geöffnet
 
-Dieser Flow ist exakt der, der im Pitch-Video gescreencaptured wird.
-
----
-
-## Features
-
-- 🗺️ Kartenansicht (Berlin)
-- 📍 Nutzerstandort (echt oder Fallback)
-- 📌 Event-Marker im Umkreis
-- 📄 Event-Detailansicht
-- 💬 Vorab-Chat (statisch)
-- 📱 Mobile-First / 9:16 optimiert (TikTok-Style)
-
-Alle Features sind **bewusst vereinfacht** und dienen ausschließlich der Demonstration.
+Dieser Flow ist **exakt der Ablauf**, der im Pitch-Video gezeigt wird.
 
 ---
 
-## Projektstruktur 
-connactiv/  
-├─ README.md              # Projektbeschreibung & Setup  
-├─ index.html             # Hauptscreen: Explore / Kartenansicht  
-├─ chat.html              # Chat Preview (Demo)  
-│  
-├─ assets/  
-│  └─ logo.svg            # Logo / Branding  
-│  
-├─ css/  
-│  ├─ reset.css           # CSS Reset (Browser-Defaults entfernen)  
-│  ├─ globals.css         # Globale Styles (Farben, Typografie, Layout)  
-│  ├─ explore.css         # Styles für index.html (Karte & Bottom Sheet)  
-│  └─ chat.css            # Styles für chat.html (Chat Preview)
-│  
-├─ js/  
-│  ├─ explore.js          # Kartenlogik, Events, Bottom Sheet  
-│  ├─ chat.js             # Chat-Demo-Logik  
-│  ├─ geo.js              # Geodistanz-Berechnung & Nearby-Filter  
-│  └─ ui.js               # UI-Helfer (Animationen, Toggles)  
-│  
-├─ data/  
-│  ├─ events.json         # Statische Event-Daten (Mock)  
-│  └─ chats.json          # Statische Chat-Nachrichten (Mock)  
-│  
-└─ pitch/  
-   └─ skript.md           # Skript für das Pitch-Video  
+## Features (Ist-Stand)
+
+- 🗺️ Kartenansicht (Leaflet + OpenStreetMap)
+- 📍 Nutzerstandort (GPS oder Demo-Fallback)
+- 📌 Ca. 50 Event-Marker  
+  - wenige „echte“ Events  
+  - viele realistisch wirkende Dummy-Events
+- 📄 Event-Detailansicht als Bottom Sheet
+- 🏷️ Einheitliches Tag-System  
+  - gleiche Farben im Header & Bottom Sheet  
+  - natürlicher Farbverlauf von links nach rechts
+- 📏 Distanzanzeige zum Event (vom Demo-Standort)
+- 💬 Vorab-Chat (statisch, pitchrelevant)
+- 👥 Teilnehmerzahl konsistent zwischen Event & Chat
+- 📱 Mobile-First, 9:16 optimiert (TikTok-Style)
+
+Alle Features sind **bewusst vereinfacht** und dienen ausschließlich der Präsentation der Idee.
+
+---
+
+## Projektstruktur
+
+```text
+connactiv/
+├─ README.md              # Projektbeschreibung (dieses Dokument)
+├─ index.html             # Explore View (Karte + Events)
+├─ chat.html              # Chat-Demo
+│
+├─ assets/
+│  └─ logo.svg            # Branding
+│
+├─ css/
+│  ├─ reset.css           # CSS Reset
+│  ├─ globals.css         # Typografie, Tokens, Basestyles
+│  ├─ explore.css         # Explore UI (Map, Chips, Bottom Sheet)
+│  └─ chat.css            # Chat UI
+│
+├─ js/
+│  ├─ explore.js          # Zentrale App-Logik (Map, Standort, Events)
+│  ├─ chat.js             # Chat-Demo-Logik
+│  └─ ui.js               # Kleine UI-Helfer
+│
+├─ data/
+│  ├─ events.json         # Statische Event-Daten (inkl. Dummy-Events)
+│  └─ chats.json          # Statische Chat-Nachrichten
+│
+└─ pitch/
+   └─ skript.md           # Pitch-Video-Skript
 
 ---
 
@@ -102,25 +112,24 @@ connactiv/
 - Zeigt:
     - Eventtitel
     - Statische Nachrichten
-    - Hinweis "Demo-Chat"
-
 
 ### JavaScript-Logik
 
 #### `explore.js`
 - Initialisiert die Karte
+- Ermittelt Standort (GPS → Fallback nach 2s)
 - Lädt Events aus `events.json`
 - Setzt Marker
+- Rendert Filter-Chips & Event-Tags (Gradient-System)
 - Öffnet/schließt das Bottom Sheet
+- Berechnet Entfernungen zwischen Standort und Events
+- Übergibt Event-Kontext an den Chat
 - Leitet bei "Teilnehmen" zu `chat.html`
 
 #### `chat.js`
-- Lädt Chat-Nachrichten aus `chats.json`
-- Rendert statische Chat-Bubble-UI
-
-### `geo.js`
-- Berechnet Entfernungen zwischen Standort und Events
-- Filtert Events im Umkreis (z.B. 1-3 km)
+- Liest Event-ID & Teilnehmerzahl aus der URL
+- Setzt Chat-Header (Eventname + Zeit)
+- Zeigt statische Demo-Nachrichten
 
 ### `ui.js`
 Kleine UI.Hilfsfunktionen
@@ -138,16 +147,14 @@ Beispiel:
 ```json
 {
   "id": "event-1",
-  "title": "Pub Quiz Night",
-  "category": "Drinks",
-  "lat": 52.5208,
-  "lng": 13.4095,
-  "startTime": "Heute 20:00",
-  "priceLabel": "free",
-  "attendeesCount": 8,
-  "tags": ["low pressure", "english friendly"],
-  "venueName": "Local Pub"
+    "title": "Pub Quiz Night",
+    "lat": 52.5208,
+    "lng": 13.4095,
+    "startTime": "Heute 20:00",
+    "attendeesCount": 8,
+    "tags": ["low pressure", "english friendly"]
 }
+
 ```
 
 #### `chats.json`
@@ -182,10 +189,10 @@ Typischer Recording-Ablauf:
 Dauer des App-Segments im Video: **20-30 Sekunden**
 
 ## Setup & Nutzung
-### Lokal starten
-- Dateien direkt im Browser öffnen  
-**oder**
-- Lokalen Server nutzen
+- Keine Build-Tools notwendig
+- Reines HTML / CSS / JS
+- Hosting über Vercel
+- Eigene Domain angebunden
 
 ### Hinweis
 Diese Web-App ist **bewusst unvollständig**.  
