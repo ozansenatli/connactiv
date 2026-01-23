@@ -81,18 +81,29 @@ function render(messages) {
 
     // 1) Event-Titel: erst aus URL, dann Fallback über events.json
     let eventTitle = getQueryParam("title") || "Event Chat";
-
-    if (!getQueryParam("title") && eventId) {
+    let eventStartTime = "";
+    if (eventId) {
         try {
             const events = await loadEvents();
             const match = events.find(e => e.id === eventId);
-            if (match?.title) eventTitle = match.title;
+            if (match) {
+                eventTitle = match.title;
+                eventStartTime = match.startTime ?? "";
+            }
         } catch (e) {
-            console.warn("Event-Titel konnte nicht geladen werden");
+            console.warn("Event-Daten konnten nicht geladen werden");
         }
     }
 
-    if (chatTitleEl) chatTitleEl.textContent = eventTitle;
+    const chatTitleNameEl = document.getElementById("chatTitleName");
+    const chatTitleTimeEl = document.getElementById("chatTitleTime");
+
+    if (chatTitleNameEl) chatTitleNameEl.textContent = eventTitle;
+    else chatTitleEl.textContent = eventTitle;
+
+    if (chatTitleTimeEl) chatTitleTimeEl.textContent = eventStartTime ? `• ${eventStartTime}` : "";   
+
+
 
     // 2) Teilnehmerzahl: direkt aus URL (attendeesCount aus Bottom Sheet)
     const attendeesRaw = getQueryParam("attendees");
