@@ -25,6 +25,11 @@ function getEventIdFromUrl() {
     return hashParams.get("event");
 }
 
+function getQueryParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}
+
 function render(messages) {
     const container = document.getElementById("chatMessages");
     container.innerHTML = "";
@@ -73,49 +78,50 @@ function render(messages) {
     const eventId = getEventIdFromUrl();
     const chatTitleEl = document.getElementById("chatTitle");
     const chatSubtitleEl = document.getElementById("chatSubtitle");
-    // Event-Titel auflösen
-    let eventTitle = "Event Chat";
 
-    if (eventId) {
-    try {
-        const events = await loadEvents();
-        const match = events.find(e => e.id === eventId);
-        if (match) eventTitle = match.title;
-    } catch (e) {
-        console.warn("Event-Titel konnte nicht geladen werden");
+    // 1) Event-Titel: erst aus URL, dann Fallback über events.json
+    let eventTitle = getQueryParam("title") || "Event Chat";
+
+    if (!getQueryParam("title") && eventId) {
+        try {
+            const events = await loadEvents();
+            const match = events.find(e => e.id === eventId);
+            if (match?.title) eventTitle = match.title;
+        } catch (e) {
+            console.warn("Event-Titel konnte nicht geladen werden");
+        }
     }
+
+    if (chatTitleEl) chatTitleEl.textContent = eventTitle;
+
+    // 2) Teilnehmerzahl: direkt aus URL (attendeesCount aus Bottom Sheet)
+    const attendeesRaw = getQueryParam("attendees");
+    const attendeesFromUrl = Number(attendeesRaw ?? "0");
+    const memberCount = Number.isFinite(attendeesFromUrl) ? attendeesFromUrl + 1 : 1;
+
+    if (chatSubtitleEl) {
+        chatSubtitleEl.textContent = `${memberCount} Teilnehmer`;
     }
 
-    chatTitleEl.textContent = eventTitle;
-
-    // System-Message vorbereiten (Event-Kontext)
+    // 3) System-Message
     const systemIntro = eventId
         ? { type: "system", text: `Du bist jetzt im Chat zu: ${eventTitle}` }
         : { type: "system", text: "Demo-Chat – connecte dich vor dem Event" };
 
-    // Chat-Nachrichten laden
-    const chats = await loadChats();
+    // 4) Chat-Nachrichten laden (robust)
+    let chats = {};
+    try {
+        chats = await loadChats();
+    } catch (e) {
+        console.warn("Chats konnten nicht geladen werden");
+        chats = {};
+    }
+
     const messages = (eventId && chats[eventId])
         ? chats[eventId]
         : (chats["default"] ?? []);
 
-    // 1) Nur "echte" Chat-Messages (ohne system)
     const cleanedMessages = messages.filter(m => m.type !== "system");
 
-    // 2) Teilnehmer zählen (unique "from"), inkl. dir ("me")
-    const uniqueUsers = new Set(
-        cleanedMessages
-            .filter(m => m.from)      // nur wenn from existiert
-            .map(m => m.from)
-    );
-
-    uniqueUsers.add("me");
-
-    // 3) Subtitle setzen
-    if (chatSubtitleEl) {
-        chatSubtitleEl.textContent = `${uniqueUsers.size} Teilnehmer`;
-    }
-
-    // 4) Rendern (System-Intro + Messages)
-    render([systemIntro, ...cleanedMessages]);  
+    render([systemIntro, ...cleanedMessages]);
 })();
