@@ -69,7 +69,15 @@ function renderFilterChips(tags) {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = `chip chip--${cls}`;
-        btn.textContent = t;
+        const dot = document.createElement("span");
+        dot.className = "tag-dot";
+        dot.setAttribute("aria-hidden", "true");
+
+        const text = document.createElement("span");
+        text.textContent = t;
+
+        btn.appendChild(dot);
+        btn.appendChild(text);
 
         filterBar.appendChild(btn);
     });
