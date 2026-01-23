@@ -173,11 +173,11 @@ function openSheet(ev) {
 
     if (eventTagsE1) {
         eventTagsE1.innerHTML = "";
-        const tags = Array.isArray(ev.tags) ? ev.tags : [];
-        tags.slice(0, 6).forEach((t) => {
-            const cls = getTagClass(t);
+        tags.slice(0, 6).forEach((t, index) => {
             const pill = document.createElement("span");
-            pill.className = `tag tag--${cls}`;
+            pill.className = "tag tag--grad";
+
+            applyGradientStyleByIndex(pill, index, Math.min(tags.length, 6));
 
             const dot = document.createElement("span");
             dot.className = "tag-dot";
