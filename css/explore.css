@@ -230,3 +230,78 @@
 .backdrop--hidden {
     display: none;
 }
+
+/* ===== Tag Color Systems ===== */
+/* ===== Tag Color System (shared across header chips + bottom sheet tags) ===== */
+:root{
+  --tag-bg: rgba(17,17,17,0.06);
+  --tag-border: rgba(17,17,17,0.10);
+  --tag-text: rgba(17,17,17,0.78);
+
+  --tag-blue-bg: rgba(20,82,235,0.10);
+  --tag-blue-bd: rgba(20,82,235,0.22);
+  --tag-blue-tx: rgba(20,82,235,0.92);
+
+  --tag-green-bg: rgba(16,163,127,0.10);
+  --tag-green-bd: rgba(16,163,127,0.22);
+  --tag-green-tx: rgba(16,163,127,0.92);
+
+  --tag-orange-bg: rgba(245,158,11,0.12);
+  --tag-orange-bd: rgba(245,158,11,0.24);
+  --tag-orange-tx: rgba(161,98,7,0.95);
+
+  --tag-purple-bg: rgba(124,58,237,0.10);
+  --tag-purple-bd: rgba(124,58,237,0.22);
+  --tag-purple-tx: rgba(124,58,237,0.92);
+
+  --tag-pink-bg: rgba(236,72,153,0.10);
+  --tag-pink-bd: rgba(236,72,153,0.22);
+  --tag-pink-tx: rgba(236,72,153,0.92);
+}
+
+/* unify chip & tag look */
+.chip, .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    color: var(--tag-text);
+}
+
+/* slightly tighter tag (bottom sheet) */
+.tag {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+/* header chip */
+.chip {
+    padding: 8px 10px;
+    font-size: 13px;
+}
+
+/* active header chip uses the same palette but stronger */
+.chip--active {
+    border-color: rgba(17,17,17,0.25);
+    background: rgba(17,17,17,0.08);
+    color: rgba(17,17,17,0.90);
+    font-weight: 600;
+}
+
+/* colored variants */
+.tag--blue, .chip--blue   { background: var(--tag-blue-bg);   border-color: var(--tag-blue-bd);   color: var(--tag-blue-tx); }
+.tag--green, .chip--green { background: var(--tag-green-bg);  border-color: var(--tag-green-bd);  color: var(--tag-green-tx); }
+.tag--orange, .chip--orange { background: var(--tag-orange-bg); border-color: var(--tag-orange-bd); color: var(--tag-orange-tx); }
+.tag--purple, .chip--purple { background: var(--tag-purple-bg); border-color: var(--tag-purple-bd); color: var(--tag-purple-tx); }
+.tag--pink, .chip--pink   { background: var(--tag-pink-bg);   border-color: var(--tag-pink-bd);   color: var(--tag-pink-tx); }
+
+/* tiny dot (optional) */
+.tag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: currentColor;
+    opacity: 0.85;
+}
