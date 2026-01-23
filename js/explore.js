@@ -2,11 +2,31 @@
 const DEFAULT_CENTER = [52.5200, 13.4050]; // Berlin
 const DEFAULT_ZOOM = 14;
 
+const TAG_CLASS_MAP = {
+    "gratis": "green",
+    "free": "green",
+    "low pressure": "blue",
+    "english friendly": "purple",
+    "party": "pink",
+    "afterwork": "orange",
+    "meetup": "blue",
+    "sports": "green",
+    "beginner friendly": "green",
+    "chill": "purple",
+    "coming soon": "orange"
+};
+
+function getTagClass(tag) {
+    const key = String(tag || "").trim().toLowerCase();
+    return TAG_CLASS_MAP[key] || "blue";
+}
+
+
 const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
 const bottomSheet = document.getElementById("bottomSheet");
 const sheetBackdrop = document.getElementById("sheetBackdrop");
-
+const eventTagsE1 = document.getElementById("eventTags");
 const eventTitle = document.getElementById("eventTitle");
 const eventSub = document.getElementById("eventSub");
 const eventBadge = document.getElementById("eventBadge");
@@ -23,6 +43,29 @@ function openSheet(ev) {
     selectedEvent = {...ev, id: ev.id || fallbackId};
     eventTitle.textContent = ev.title;
     eventSub.textContent = `${ev.startTime ?? ""}`;
+
+    if (eventTagsE1) {
+        eventTagsE1.innerHTML = "";
+        const tags = Array.isArray(ev.tags) ? ev.tags : [];
+        tags.slice(0, 6).forEach((t) => {
+            const cls = getTagClass(t);
+            const pill = document.createElement("span");
+            pill.className = `tag tag--${cls}`;
+
+            const dot = document.createElement("span");
+            dot.className = "tag-dot";
+            dot.setAttribute("aria-hidden", "true");
+
+            const text = document.createElement("span");
+            text.textContent = t;
+
+            pill.appendChild(dot);
+            pill.appendChild(text);
+
+            eventTagsE1.appendChild(pill);
+        });
+    }
+
     eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
 
     bottomSheet.classList.remove("bottom-sheet--hidden");
