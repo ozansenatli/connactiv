@@ -1,6 +1,6 @@
 // js/explore.js
 const DEFAULT_CENTER = [52.5200, 13.4050]; // Berlin
-const DEFAULT_ZOOM = 13;
+const DEFAULT_ZOOM = 14;
 
 const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
@@ -12,6 +12,8 @@ const eventSub = document.getElementById("eventSub");
 const eventBadge = document.getElementById("eventBadge");
 
 const closeSheetBtn = document.getElementById("closeSheetBtn");
+
+const statusPill = document.getElementById("statusPill");
 
 const joinBtn = document.getElementById("joinBtn");
 let selectedEventId = null;
@@ -76,9 +78,14 @@ function setFallback() {
 }
 
 function setUserLocation() {
-    if (!navigator.geolocation) return setFallback();
+    showFallbackAfter2s();
+
+    if (!navigator.geolocation) return;
+
     navigator.geolocation.getCurrentPosition(
         (pos) => {
+            if (!statusPill || statusPill.style.display === "none") return;
+
             const user = [pos.coords.latitude, pos.coords.longitude];
             L.circleMarker(user, {
                 radius: 8,
@@ -86,11 +93,32 @@ function setUserLocation() {
                 weight: 2,
                 fillOpacity: 0.8,
             }).addTo(map);
-            map.setView(user, 14);
+            map.setView(user, DEFAULT_ZOOM);
+            hideStatusPill();
         },
-        () => setFallback(),
-        {enableHighAccuracy: true, timeout: 5000}
+        () => {
+            // Fehler: Fallback
+
+        }
+        {enableHighAccuracy: true, timeout: 1500}
     );
+}
+
+function hideStatusPill() {
+    if (!statusPill) return;
+    statusPill.style.opacity = "0";
+    statusPill.style.pointerEvents = "none";
+    setTimeout(() => {
+        statusPill.style.display = "none";
+    }, 200);
+}
+
+function showFallbackAfter2s() {
+    // Nach 2 Sekunden: Dummy-Standort + Status weg
+    setTimeout(() => {
+        setFallback();
+        hideStatusPill();
+    }, 2000);
 }
 
 async function loadEvents(){
@@ -102,18 +130,36 @@ async function loadEvents(){
 function addEventMarkers(events) {
     if (!Array.isArray(events)) return;
 
-    events.forEach((ev) => {
-        const marker = L.marker([ev.lat, ev.lng]).addTo(map);
-        marker.on("click", () => {
-            openSheet(ev);
-        });
+    events.forEach((ev, i) => {
+        setTimeout(() => {
+            const isDummy = ev.isDummy === true;
+
+            let marker;
+            if (isDummy) {
+                marker = L.circleMarker([ev.lat, ev.lng], {
+                    radius: 7,
+                    color: "#9aa0a6",
+                    weight: 2,
+                    fillOpacity: 0.65,
+                }).addTo(map);
+            } else {
+                marker = L.marker([ev.lat, ev.lng]).addTo(map);
+            }
+
+            marker.on("click", () => openSheet(ev));
+        }, 120 + i*40); // Start nach 120ms, dann alle 40ms ein Marker
     });
 }
 
-(async function init(){
+
+(async function init() {
     setUserLocation();
+
     const events = await loadEvents();
-    addEventMarkers(events);
+
+    setTimeout(() => {
+        addEventMarkers(events);
+    }, 2000);
 })();
 
 /*  ===============================================
