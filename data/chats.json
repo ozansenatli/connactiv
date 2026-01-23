@@ -2,22 +2,21 @@
     "default": [
         { "type": "system", "text": "Demo-Chat – connecte dich vor dem Event" },
         { "from": "mira", "text": "Hey! Gehst du auch zum Event?", "time": "18:41" },
-        { "from": "me", "text": "Ja, ich bin dabei. Treffen wir uns vorher?", "time": "18:42" },
-        { "from": "leo", "text": "Gerne! 10 Min vorher am Eingang?", "time": "18:43" }
+        { "from": "me", "text": "Ja, ich bin dabei. Treffen wir uns vorher?", "time": "18:42" }
     ],
     "event-1": [
         { "type": "system", "text": "3 Leute sind beigetreten" },
-        { "from": "mira", "text": "Hi zusammen – ich bin zum ersten Mal beim Pub Quiz. Wie erkennt man euch?", "time": "19:12" },
-        { "from": "me", "text": "Same! Ich bin ca. 19:50 da. Wollen wir uns kurz vor dem Eingang treffen?", "time": "19:13" },
-        { "from": "leo", "text": "Ja! Ich trage eine schwarze Jacke. Ich schreibe kurz, wenn ich da bin.", "time": "19:14" },
-        { "from": "nina", "text": "Bin auch dabei – hab eine grüne Mütze. Können wir als Team gehen?", "time": "19:15" }
-     ],
+        { "from": "mira", "text": "Hi! Erstes Pub Quiz für mich – wer ist noch dabei?", "time": "19:12" },
+        { "from": "me", "text": "Ich 🙋‍♂️ Bin 10 Min früher da. Treffen wir uns am Eingang?", "time": "19:13" },
+        { "from": "leo", "text": "Ja, bin dabei. Schwarze Jacke, ich wink kurz.", "time": "19:14" },
+        { "from": "nina", "text": "Ich auch! Können wir als Team gehen?", "time": "19:15" }
+    ],
     "event-2": [
         { "type": "system", "text": "5 Leute sind beigetreten" },
-        { "from": "tim", "text": "Wer geht alles zum Techno Bar Meetup? Bin neu in der Szene 😅", "time": "21:10" },
-        { "from": "me", "text": "Ich bin dabei. Lass entspannt reingehen – wir treffen uns 10 Min vorher.", "time": "21:11" },
-        { "from": "sara", "text": "Perfekt. Ich bin 21:50 da. Wo genau ist der Treffpunkt?", "time": "21:12" },
-        { "from": "ben", "text": "Ich komm auch. Können wir kurz vorher schon Hallo sagen?", "time": "21:12" },
-        { "from": "me", "text": "Ja! Direkt am Eingang beim Schild. Ich ping hier rein, wenn ich da bin.", "time": "21:13" }
-     ]
+        { "from": "tim", "text": "Wer geht zum Techno Bar Meetup? Bin neu in Berlin 😅", "time": "21:10" },
+        { "from": "me", "text": "Ich bin dabei. Lass entspannt zusammen rein.", "time": "21:11" },
+        { "from": "sara", "text": "Perfekt. Wo genau treffen?", "time": "21:12" },
+        { "from": "ben", "text": "Ich komme auch. 10 Min vorher passt.", "time": "21:12" },
+        { "from": "jo", "text": "Bin in 5 Min da – Eingang links?", "time": "21:13" }
+    ]
 }
