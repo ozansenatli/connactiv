@@ -99,7 +99,7 @@ function setUserLocation() {
         () => {
             // Fehler: Fallback
 
-        }
+        },
         {enableHighAccuracy: true, timeout: 1500}
     );
 }
