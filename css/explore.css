@@ -330,3 +330,34 @@
     background: currentColor;
     opacity: 0.85;
 }
+
+/* ===============================================
+   Gradient Chips (left -> right)
+   =============================================== */
+
+/* Standard-Chip etwas cleaner */
+.chip {
+  border: 1px solid rgba(0,0,0,0.10);
+  background: #fff;
+  color: rgba(0,0,0,0.78);
+}
+
+/* Farbchip-Look */
+.chip.chip--grad {
+  border: 1px solid rgba(0,0,0,0.08);
+  background: var(--chip-bg, rgba(0,0,0,0.04));
+  color: var(--chip-fg, rgba(0,0,0,0.82));
+}
+
+/* Aktiver Chip: etwas kräftiger */
+.chip.chip--grad.chip--active {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+  border-color: rgba(0,0,0,0.14);
+  font-weight: 700;
+}
+
+/* "Alle" neutral halten */
+.chip.chip--slate {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.10);
+}
