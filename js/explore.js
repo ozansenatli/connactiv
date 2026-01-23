@@ -19,6 +19,7 @@ const joinBtn = document.getElementById("joinBtn");
 let selectedEventId = null;
 
 function openSheet(ev) {
+    selectetEvent = ev;
     selectedEventId = ev.id;
     eventTitle.textContent = ev.title;
     eventSub.textContent = `${ev.startTime ?? ""}`;
@@ -170,5 +171,13 @@ closeSheetBtn.addEventListener("click", closeSheet);
 sheetBackdrop.addEventListener("click", closeSheet);
 joinBtn.addEventListener("click", () => {
     if (!selectedEventId) return;
-    window.location.href = `./chat.html#event=${encodeURIComponent(selectedEventId)}`;
+
+    const eventId = selectedEventId;
+    const attendees = Number(selectedEvent.attendeesCount ?? 0);
+    const title = selectedEvent.title ?? "Event Chat";
+
+    window.location.href = 
+    `./chat.html?event=${encodeURIComponent(eventId)}` +
+    `&attendees=${encodeURIComponent(String(attendees))}` +
+    `&title=${encodeURIComponent(title)}`;
 });
