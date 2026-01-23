@@ -115,7 +115,7 @@ const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOO
 
 const bottomSheet = document.getElementById("bottomSheet");
 const sheetBackdrop = document.getElementById("sheetBackdrop");
-const eventTagsE1 = document.getElementById("eventTags");
+const eventTagsEl = document.getElementById("eventTags");
 const eventTitle = document.getElementById("eventTitle");
 const eventSub = document.getElementById("eventSub");
 const eventBadge = document.getElementById("eventBadge");
@@ -162,8 +162,8 @@ function openSheet(ev) {
     const d = distanceMeters(currentUserLatLng, [ev.lat, ev.lng]);
     eventSub.textContent = `${ev.startTime ?? ""} • ${formatDistance(d)}`;
 
-    if (eventTagsE1) {
-        eventTagsE1.innerHTML = "";
+    if (eventTagsEl) {
+        eventTagsEl.innerHTML = "";
 
         const tags = Array.isArray(ev.tags) ? ev.tags : [];
         const limited = tags.slice(0, 6);
@@ -184,7 +184,7 @@ function openSheet(ev) {
             pill.appendChild(dot);
             pill.appendChild(text);
 
-            eventTagsE1.appendChild(pill);
+            eventTagsEl.appendChild(pill);
         });
     }
 
