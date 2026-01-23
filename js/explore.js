@@ -109,15 +109,6 @@ function renderFilterChips(tags) {
         filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
         btn.classList.add("chip--active");
     };
-
-    // Click Listener NUR EINMAL
-    filterBar.addEventListener("click", (e) => {
-        const btn = e.target.closest("button.chip");
-        if (!btn) return;
-
-        filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
-        btn.classList.add("chip--active");
-    });
 }
 
 const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
@@ -173,11 +164,15 @@ function openSheet(ev) {
 
     if (eventTagsE1) {
         eventTagsE1.innerHTML = "";
-        tags.slice(0, 6).forEach((t, index) => {
+
+        const tags = Array.isArray(ev.tags) ? ev.tags : [];
+        const limited = tags.slice(0, 6);
+
+        limited.forEach((t, index) => {
             const pill = document.createElement("span");
             pill.className = "tag tag--grad";
 
-            applyGradientStyleByIndex(pill, index, Math.min(tags.length, 6));
+            applyGradientStyleByIndex(pill, index, limited.length);
 
             const dot = document.createElement("span");
             dot.className = "tag-dot";
@@ -192,6 +187,7 @@ function openSheet(ev) {
             eventTagsE1.appendChild(pill);
         });
     }
+
 
     eventBadge.textContent = `${ev.attendeesCount ?? 0} Personen gehen hin`;
 
