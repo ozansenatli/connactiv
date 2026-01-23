@@ -1,7 +1,7 @@
 // js/explore.js
 const DEFAULT_CENTER = [52.5200, 13.4050]; // Berlin
 const DEFAULT_ZOOM = 14;
-
+let currentUserLatLng = DEFAULT_CENTER;
 const TAG_CLASS_MAP = {
   // Preis / Free
   "gratis": "green",
@@ -137,11 +137,39 @@ const statusPill = document.getElementById("statusPill");
 const joinBtn = document.getElementById("joinBtn");
 let selectedEvent = null;
 
+function distanceMeters(a, b) {
+    // a, b = [lat, lng]
+    const R = 6371000; // Erdradius in Metern
+    const toRad = (deg) => (deg * Math.PI) / 180;
+
+    const lat1 = toRad(a[0]);
+    const lat2 = toRad(b[0]);
+    const dLat = toRad(b[0] - a[0]);
+    const dLng = toRad(b[1] - a[1]);
+
+    const sinDLat = Math.sin(dLat / 2);
+    const sinDLng = Math.sin(dLng / 2);
+
+    const h =
+        sinDLat * sinDLat +
+        Math.cos(lat1) * Math.cos(lat2) * sinDLng * sinDLng;
+
+    const c = 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+    return R * c;
+}
+
+function formatDistance(meters) {
+    if (!Number.isFinite(meters)) return "";
+    if (meters < 1000) return `${Math.round(meters)} m entfernt`;
+    return `${(meters / 1000).toFixed(1).replace(".", ",")} km entfernt`;
+}
+
 function openSheet(ev) {
     const fallbackId = `dummy-${Math.round(ev.lat * 100000)}-${Math.round(ev.lng * 100000)}`;
     selectedEvent = {...ev, id: ev.id || fallbackId};
     eventTitle.textContent = ev.title;
-    eventSub.textContent = `${ev.startTime ?? ""}`;
+    const d = distanceMeters(currentUserLatLng, [ev.lat, ev.lng]);
+    eventSub.textContent = `${ev.startTime ?? ""} • ${formatDistance(d)}`;
 
     if (eventTagsE1) {
         eventTagsE1.innerHTML = "";
@@ -211,6 +239,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 function setFallback() {
     const user = DEFAULT_CENTER;
+    currentUserLatLng = user;
     L.circleMarker(user, {
         radius: 8,
         color: "#1452eb",
@@ -230,6 +259,8 @@ function setUserLocation() {
             if (!statusPill || statusPill.style.display === "none") return;
 
             const user = [pos.coords.latitude, pos.coords.longitude];
+
+            currentUserLatLng = user;
             L.circleMarker(user, {
                 radius: 8,
                 color: "#1452eb",
