@@ -1,9 +1,11 @@
-/* css/explore.css */
+/* ======================================================
+   App Layout
+   ====================================================== */
 
 .app {
-    height:100dvh;
-    display:flex;
-    flex-direction:column;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
     background: #f6f7f9;
 }
 
@@ -16,7 +18,7 @@
     border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
-.brand{
+.brand {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -41,6 +43,10 @@
     background: #fff;
 }
 
+/* ======================================================
+   Action Bar (Filter Chips)
+   ====================================================== */
+
 .action-bar {
     display: flex;
     gap: 8px;
@@ -50,35 +56,45 @@
     border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 
-.chip{
+/* Base chip */
+.chip {
     flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 8px 12px;
     border-radius: 999px;
-    border: 1px solid var(--tag-slate-bd);
-    background: var(--tag-slate-bg);
-    color: var(--tag-slate-tx);
     font-size: 13px;
-    white-space: nowrap;
     line-height: 1;
+    white-space: nowrap;
+    border: 1px solid rgba(0,0,0,0.10);
+    background: #fff;
+    color: rgba(0,0,0,0.78);
 }
 
-.chip--active{
-    border-color: #9ca3af;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+/* Gradient chip (used for ALL tags except "Alle") */
+.chip.chip--grad {
+    background: var(--chip-bg, rgba(0,0,0,0.04));
+    color: var(--chip-fg, rgba(0,0,0,0.82));
+    border-color: rgba(0,0,0,0.08);
+}
+
+/* Active state */
+.chip.chip--active {
     font-weight: 600;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.10);
 }
 
-.chip--blue   { background: var(--tag-blue-bg);   border-color: var(--tag-blue-bd);   color: var(--tag-blue-tx); }
-.chip--green  { background: var(--tag-green-bg);  border-color: var(--tag-green-bd);  color: var(--tag-green-tx); }
-.chip--amber  { background: var(--tag-amber-bg);  border-color: var(--tag-amber-bd);  color: var(--tag-amber-tx); }
-.chip--purple { background: var(--tag-purple-bg); border-color: var(--tag-purple-bd); color: var(--tag-purple-tx); }
-.chip--rose   { background: var(--tag-rose-bg);   border-color: var(--tag-rose-bd);   color: var(--tag-rose-tx); }
-.chip--teal   { background: var(--tag-teal-bg);   border-color: var(--tag-teal-bd);   color: var(--tag-teal-tx); }
-.chip--slate  { background: var(--tag-slate-bg);  border-color: var(--tag-slate-bd);  color: var(--tag-slate-tx); }
-
-.chip:hover{
-    filter: brightness(0.98);
+/* Neutral "Alle" chip */
+.chip.chip--slate {
+    background: rgba(0,0,0,0.04);
+    color: rgba(0,0,0,0.78);
+    border-color: rgba(0,0,0,0.12);
 }
+
+/* ======================================================
+   Main / Map
+   ====================================================== */
 
 .app-main {
     position: relative;
@@ -113,28 +129,24 @@
     color: #fff;
     font-size: 12px;
     z-index: 900;
-    transition: opacity 200ms ease;
 }
 
-/* --- Bottom Sheet --- */
+/* ======================================================
+   Bottom Sheet
+   ====================================================== */
+
 .bottom-sheet {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-
     background: #fff;
     padding: 16px;
-
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
-
     transform: translateY(0);
     transition: transform 250ms ease;
     z-index: 1001;
-
-    max-height: 80dvh;
-    overflow: auto;
 }
 
 .bottom-sheet--hidden {
@@ -146,7 +158,7 @@
     height: 5px;
     border-radius: 999px;
     background: rgba(0,0,0,0.18);
-    margin: 0 auto 12px auto; 
+    margin: 0 auto 12px auto;
 }
 
 .bottom-sheet__content {
@@ -184,6 +196,10 @@
     white-space: nowrap;
 }
 
+/* ======================================================
+   Tags (Bottom Sheet)
+   ====================================================== */
+
 .tag-row {
     display: flex;
     gap: 8px;
@@ -191,29 +207,42 @@
 }
 
 .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     padding: 6px 10px;
     border-radius: 999px;
+    font-size: 12px;
     border: 1px solid rgba(0,0,0,0.10);
     background: #fff;
-    font-size: 12px;
-    opacity: 0.9;
+    color: rgba(0,0,0,0.78);
 }
 
-.tag--blue   { background: var(--tag-blue-bg);   border-color: var(--tag-blue-bd);   color: var(--tag-blue-tx); }
-.tag--green  { background: var(--tag-green-bg);  border-color: var(--tag-green-bd);  color: var(--tag-green-tx); }
-.tag--amber  { background: var(--tag-amber-bg);  border-color: var(--tag-amber-bd);  color: var(--tag-amber-tx); }
-.tag--purple { background: var(--tag-purple-bg); border-color: var(--tag-purple-bd); color: var(--tag-purple-tx); }
-.tag--rose   { background: var(--tag-rose-bg);   border-color: var(--tag-rose-bd);   color: var(--tag-rose-tx); }
-.tag--teal   { background: var(--tag-teal-bg);   border-color: var(--tag-teal-bd);   color: var(--tag-teal-tx); }
-.tag--slate  { background: var(--tag-slate-bg);  border-color: var(--tag-slate-bd);  color: var(--tag-slate-tx); }
+.tag.tag--grad {
+    background: var(--chip-bg, rgba(0,0,0,0.04));
+    color: var(--chip-fg, rgba(0,0,0,0.82));
+    border-color: rgba(0,0,0,0.08);
+}
 
+.tag-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: currentColor;
+    opacity: 0.65;
+    flex: 0 0 auto;
+}
+
+/* ======================================================
+   Buttons
+   ====================================================== */
 
 .cta-row {
     display: flex;
     gap: 10px;
 }
 
-.btn{
+.btn {
     flex: 1;
     padding: 12px 12px;
     border-radius: 14px;
@@ -244,7 +273,10 @@
     text-align: center;
 }
 
-/* --- Backdrop --- */
+/* ======================================================
+   Backdrop
+   ====================================================== */
+
 .backdrop {
     position: fixed;
     inset: 0;
@@ -254,116 +286,4 @@
 
 .backdrop--hidden {
     display: none;
-}
-
-/* ===== Tag Color Systems ===== */
-/* ===== Tag Color System (shared across header chips + bottom sheet tags) ===== */
-:root{
-  --tag-bg: rgba(17,17,17,0.06);
-  --tag-border: rgba(17,17,17,0.10);
-  --tag-text: rgba(17,17,17,0.78);
-
-  --tag-blue-bg: rgba(20,82,235,0.10);
-  --tag-blue-bd: rgba(20,82,235,0.22);
-  --tag-blue-tx: rgba(20,82,235,0.92);
-
-  --tag-green-bg: rgba(16,163,127,0.10);
-  --tag-green-bd: rgba(16,163,127,0.22);
-  --tag-green-tx: rgba(16,163,127,0.92);
-
-  --tag-orange-bg: rgba(245,158,11,0.12);
-  --tag-orange-bd: rgba(245,158,11,0.24);
-  --tag-orange-tx: rgba(161,98,7,0.95);
-
-  --tag-purple-bg: rgba(124,58,237,0.10);
-  --tag-purple-bd: rgba(124,58,237,0.22);
-  --tag-purple-tx: rgba(124,58,237,0.92);
-
-  --tag-pink-bg: rgba(236,72,153,0.10);
-  --tag-pink-bd: rgba(236,72,153,0.22);
-  --tag-pink-tx: rgba(236,72,153,0.92);
-}
-
-/* unify chip & tag look */
-.chip, .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border-radius: 999px;
-    border: 1px solid var(--tag-border);
-    background: var(--tag-bg);
-    color: var(--tag-text);
-}
-
-/* slightly tighter tag (bottom sheet) */
-.tag {
-    padding: 6px 10px;
-    font-size: 12px;
-}
-
-/* header chip */
-.chip {
-    padding: 8px 10px;
-    font-size: 13px;
-}
-
-/* active header chip uses the same palette but stronger */
-.chip--active {
-    border-color: rgba(17,17,17,0.25);
-    background: rgba(17,17,17,0.08);
-    color: rgba(17,17,17,0.90);
-    font-weight: 600;
-}
-
-/* colored variants */
-.tag--blue, .chip--blue   { background: var(--tag-blue-bg);   border-color: var(--tag-blue-bd);   color: var(--tag-blue-tx); }
-.tag--green, .chip--green { background: var(--tag-green-bg);  border-color: var(--tag-green-bd);  color: var(--tag-green-tx); }
-.tag--orange, .chip--orange { background: var(--tag-orange-bg); border-color: var(--tag-orange-bd); color: var(--tag-orange-tx); }
-.tag--purple, .chip--purple { background: var(--tag-purple-bg); border-color: var(--tag-purple-bd); color: var(--tag-purple-tx); }
-.tag--pink, .chip--pink   { background: var(--tag-pink-bg);   border-color: var(--tag-pink-bd);   color: var(--tag-pink-tx); }
-
-/* tiny dot (optional) */
-.tag-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: currentColor;
-    opacity: 0.85;
-}
-
-/* ===============================================
-   Gradient Chips (left -> right)
-   =============================================== */
-
-/* Standard-Chip etwas cleaner */
-.chip {
-  border: 1px solid rgba(0,0,0,0.10);
-  background: #fff;
-  color: rgba(0,0,0,0.78);
-}
-
-/* Farbchip-Look */
-.chip.chip--grad {
-  border: 1px solid rgba(0,0,0,0.08);
-  background: var(--chip-bg, rgba(0,0,0,0.04));
-  color: var(--chip-fg, rgba(0,0,0,0.82));
-}
-
-/* Aktiver Chip: etwas kräftiger */
-.chip.chip--grad.chip--active {
-  box-shadow: 0 6px 18px rgba(0,0,0,0.10);
-  border-color: rgba(0,0,0,0.14);
-  font-weight: 700;
-}
-
-/* "Alle" neutral halten */
-.chip.chip--slate {
-  background: rgba(0,0,0,0.04);
-  border-color: rgba(0,0,0,0.10);
-}
-
-.tag.tag--grad {
-    border: 1px solid rgba(0,0,0,0.08);
-    background: var(--chaip-bg, rgba(0,0,0,0.04));
-    color: var(--chip-fg, rgba(0,0,0,0.82));
 }
