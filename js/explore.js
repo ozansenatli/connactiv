@@ -3,22 +3,37 @@ const DEFAULT_CENTER = [52.5200, 13.4050]; // Berlin
 const DEFAULT_ZOOM = 14;
 
 const TAG_CLASS_MAP = {
-    "gratis": "green",
-    "free": "green",
-    "low pressure": "blue",
-    "english friendly": "purple",
-    "party": "pink",
-    "afterwork": "orange",
-    "meetup": "blue",
-    "sports": "green",
-    "beginner friendly": "green",
-    "chill": "purple",
-    "coming soon": "orange"
+  // Preis / Free
+  "gratis": "green",
+  "free": "green",
+
+  // Mood / Social
+  "low pressure": "blue",
+  "bring a friend": "blue",
+  "casual": "blue",
+  "chill": "teal",
+
+  // Language
+  "english friendly": "purple",
+
+  // Occasion
+  "party": "rose",
+  "night": "rose",
+  "afterwork": "amber",
+
+  // Type
+  "meetup": "slate",
+  "beginner friendly": "green",
+  "sports": "teal",
+
+  // Status
+  "coming soon": "amber"
 };
+
 
 function getTagClass(tag) {
     const key = String(tag || "").trim().toLowerCase();
-    return TAG_CLASS_MAP[key] || "blue";
+    return TAG_CLASS_MAP[key] || "slate";
 }
 
 function collectUniqueTags(events) {
@@ -38,18 +53,18 @@ function renderFilterChips(tags) {
 
     filterBar.innerHTML = "";
 
-    // Optional: “Alle” Chip vorne dran
+    // “Alle” Chip
     const allBtn = document.createElement("button");
     allBtn.type = "button";
-    allBtn.className = "chip chip--active";
+    allBtn.className = "chip chip--slate chip--active";
     allBtn.textContent = "Alle";
     filterBar.appendChild(allBtn);
 
-    // Tags alphabetisch, damit es ruhig aussieht
+    // Tags alphabetisch
     const sorted = [...tags].sort((a, b) => a.localeCompare(b, "de"));
 
     sorted.forEach((t) => {
-        const cls = getTagClass(t); // nutzt dein TAG_CLASS_MAP
+        const cls = getTagClass(t);
 
         const btn = document.createElement("button");
         btn.type = "button";
@@ -57,16 +72,18 @@ function renderFilterChips(tags) {
         btn.textContent = t;
 
         filterBar.appendChild(btn);
-
-        filterBar.addEventListener("click", (e) => {
-            const btn = e.target.closest("button.chip");
-            if (!btn) return;
-
-            filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
-            btn.classList.add("chip--active");
-        });
     });
+
+    // Click Handling: NUR EINMAL registrieren
+    filterBar.addEventListener("click", (e) => {
+        const btn = e.target.closest("button.chip");
+        if (!btn) return;
+
+        filterBar.querySelectorAll(".chip").forEach((b) => b.classList.remove("chip--active"));
+        btn.classList.add("chip--active");
+    }, { once: true });
 }
+
 
 const map = L.map("map", {zoomControl:true}).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
@@ -86,7 +103,7 @@ const joinBtn = document.getElementById("joinBtn");
 let selectedEvent = null;
 
 function openSheet(ev) {
-    const fallbackId = `dummy-${Math.round(ev.lat * 100000)} - ${Math.round(ev.lng * 100000)}`;
+    const fallbackId = `dummy-${Math.round(ev.lat * 100000)}-${Math.round(ev.lng * 100000)}`;
     selectedEvent = {...ev, id: ev.id || fallbackId};
     eventTitle.textContent = ev.title;
     eventSub.textContent = `${ev.startTime ?? ""}`;
