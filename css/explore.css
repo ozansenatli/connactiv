@@ -1,36 +1,5 @@
 /* css/explore.css */
 
-:root{
-    --tag-slate-bg: #f3f4f6;
-    --tag-slate-bd: #d1d5db;
-    --tag-slate-tx: #111827;
-
-    --tag-blue-bg:  #eff6ff;
-    --tag-blue-bd:  #bfdbfe;
-    --tag-blue-tx:  #1d4ed8;
-
-    --tag-green-bg: #ecfdf5;
-    --tag-green-bd: #a7f3d0;
-    --tag-green-tx: #047857;
-
-    --tag-amber-bg: #fffbeb;
-    --tag-amber-bd: #fde68a;
-    --tag-amber-tx: #92400e;
-
-    --tag-purple-bg:#f5f3ff;
-    --tag-purple-bd:#ddd6fe;
-    --tag-purple-tx:#6d28d9;
-
-    --tag-rose-bg:  #fff1f2;
-    --tag-rose-bd:  #fecdd3;
-    --tag-rose-tx:  #be123c;
-
-    --tag-teal-bg:  #ecfeff;
-    --tag-teal-bd:  #a5f3fc;
-    --tag-teal-tx:  #0f766e;
-}
-
-
 .app {
     height:100dvh;
     display:flex;
