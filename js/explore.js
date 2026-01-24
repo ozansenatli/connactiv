@@ -14,6 +14,13 @@ let allEvents = [];
 const markerLayer = L.layerGroup();
 const markerByEventId = new Map(); 
 
+const eventMarkerIcon = L.divIcon({
+    className: "event-marker",
+    iconSize: [34, 44],
+    iconAnchor: [17, 42],
+    popupAnchor: [0, -38],
+});
+
 // Tag-Farben: werden EINMAL berechnet und überall wiederverwendet
 let ORDERED_TAGS = [];
 let TAG_STYLE_BY_TAG = {};
@@ -300,7 +307,7 @@ function addMarkers(events) {
 
     events.forEach((ev, i) => {
         setTimeout(() => {
-        const m = L.marker([ev.lat, ev.lng]);
+        const m = L.marker([ev.lat, ev.lng], { icon: eventMarkerIcon });
         m.on("click", () => {
             closeMenu();
             openSheet(ev);
