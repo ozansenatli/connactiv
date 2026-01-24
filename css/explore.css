@@ -51,16 +51,17 @@
 }
 
 .brand-logo {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: block;
 }
 
 .brand-name {
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: -0.03em;
     color: var(--text);
-    font-size: 15px;
+    font-size: 18px;
     line-height: 1;
     white-space: nowrap;
 }
