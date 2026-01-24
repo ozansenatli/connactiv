@@ -13,12 +13,19 @@ let selectedEvent = null;
 let allEvents = [];
 const markerLayer = L.layerGroup();
 const markerByEventId = new Map(); 
+let userMarker = null;
 
 const eventMarkerIcon = L.divIcon({
     className: "event-marker",
     iconSize: [34, 44],
     iconAnchor: [17, 42],
     popupAnchor: [0, -38],
+});
+
+const userMarkerIcon = L.divIcon({
+    className: "user-marker",
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
 });
 
 // Tag-Farben: werden EINMAL berechnet und überall wiederverwendet
@@ -140,12 +147,8 @@ function hideStatusPill() {
 
 function setFallbackLocation() {
     currentUserLatLng = DEFAULT_CENTER;
-    L.circleMarker(DEFAULT_CENTER, {
-        radius: 8,
-        color: "#1452eb",
-        weight: 2,
-        fillOpacity: 0.8
-    }).addTo(map);
+    if (userMarker) userMarker.remove();
+    userMarker = L.marker(DEFAULT_CENTER, { icon: userMarkerIcon, interactive: false }).addTo(map);
     map.setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 }
 
@@ -163,12 +166,8 @@ function setUserLocation() {
         const user = [pos.coords.latitude, pos.coords.longitude];
         currentUserLatLng = user;
 
-        L.circleMarker(user, {
-            radius: 8,
-            color: "#1452eb",
-            weight: 2,
-            fillOpacity: 0.8
-        }).addTo(map);
+        if (userMarker) userMarker.remove();
+        userMarker = L.marker(user, { icon: userMarkerIcon, interactive: false }).addTo(map);
 
         map.setView(user, DEFAULT_ZOOM);
         hideStatusPill();
