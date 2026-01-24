@@ -129,9 +129,9 @@ function formatDistance(m) {
 // ------------------------------------------------------------
 // Map Base Layer
 // ------------------------------------------------------------
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors",
-    maxZoom: 19
+L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="https://opentopomap.org">OpenTopoMap</a> (CC-BY-SA)',
+    maxZoom: 17
 }).addTo(map);
 
 // ------------------------------------------------------------
