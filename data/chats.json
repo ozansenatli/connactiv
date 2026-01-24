@@ -1,22 +1,480 @@
 {
-    "default": [
-        { "type": "system", "text": "Demo-Chat – connecte dich vor dem Event" },
-        { "from": "mira", "text": "Hey! Gehst du auch zum Event?", "time": "18:41" },
-        { "from": "me", "text": "Ja, ich bin dabei. Treffen wir uns vorher?", "time": "18:42" }
-    ],
-    "event-1": [
-        { "type": "system", "text": "3 Leute sind beigetreten" },
-        { "from": "mira", "text": "Hi! Erstes Pub Quiz für mich – wer ist noch dabei?", "time": "19:12" },
-        { "from": "me", "text": "Ich 🙋‍♂️ Bin 10 Min früher da. Treffen wir uns am Eingang?", "time": "19:13" },
-        { "from": "leo", "text": "Ja, bin dabei. Schwarze Jacke, ich wink kurz.", "time": "19:14" },
-        { "from": "nina", "text": "Ich auch! Können wir als Team gehen?", "time": "19:15" }
-    ],
-    "event-2": [
-        { "type": "system", "text": "5 Leute sind beigetreten" },
-        { "from": "tim", "text": "Wer geht zum Techno Bar Meetup? Bin neu in Berlin 😅", "time": "21:10" },
-        { "from": "me", "text": "Ich bin dabei. Lass entspannt zusammen rein.", "time": "21:11" },
-        { "from": "sara", "text": "Perfekt. Wo genau treffen?", "time": "21:12" },
-        { "from": "ben", "text": "Ich komme auch. 10 Min vorher passt.", "time": "21:12" },
-        { "from": "jo", "text": "Bin in 5 Min da – Eingang links?", "time": "21:13" }
-    ]
+  "default": [
+    { "type": "system", "text": "Demo-Chat – connecte dich vor dem Event" },
+    { "from": "mira", "text": "Hey! Gehst du auch hin?", "time": "18:41" },
+    { "from": "me", "text": "Ja safe. Treffen wir uns vorher kurz?", "time": "18:42" },
+    { "from": "mira", "text": "Gerne. 10 Min früher am Eingang?", "time": "18:43" }
+  ],
+
+  "event-1": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "mira", "text": "Okay Leute, erstes Pub Quiz für mich 😄 Wer ist noch dabei?", "time": "19:12" },
+    { "from": "leo", "text": "Ich bin dabei. Hab null Plan, aber Bock 😅", "time": "19:13" },
+    { "from": "me", "text": "Same. Ich bin so 10 Min früher da – Eingang passt?", "time": "19:14" },
+    { "from": "nina", "text": "Yes! Lasst als Team reingehen, dann wirkt’s weniger awkward.", "time": "19:15" },
+    { "from": "mira", "text": "Deal. Ich bin mit beiger Jacke da, wink einfach kurz 👋", "time": "19:16" }
+  ],
+
+  "event-2": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "tim", "text": "Wer geht zum Techno Bar Meetup? Bin neu in Berlin, kenn noch niemanden 😅", "time": "21:10" },
+    { "from": "sara", "text": "Same here. Wollen wir uns kurz vorher sammeln?", "time": "21:11" },
+    { "from": "me", "text": "Ja, ich wär dabei. 10 Min vorher am Eingang?", "time": "21:11" },
+    { "from": "ben", "text": "Passt. Ich komme direkt von der Arbeit, brauch kurz zum Umziehen 😄", "time": "21:12" },
+    { "from": "jo", "text": "Bin gleich da. Eingang links, wo die Leute rauchen?", "time": "21:13" },
+    { "from": "sara", "text": "Ja genau. Ich hab nen lilafarbenen Hoodie an.", "time": "21:14" }
+  ],
+
+  "event-3": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "lina", "text": "Boardgames Café klingt nice. Was spielt ihr so? 👀", "time": "17:55" },
+    { "from": "me", "text": "Ich bin für alles offen, solange es nicht 3h Regelwerk ist 😅", "time": "17:56" },
+    { "from": "max", "text": "UNO ist doch ein Klassiker 😂", "time": "17:57" },
+    { "from": "lina", "text": "Haha safe. Ich wär für Codenames oder Dixit.", "time": "17:58" },
+    { "from": "jana", "text": "Codenames beste. Treffen wir uns 5–10 Min früher vorm Eingang?", "time": "18:00" },
+    { "from": "me", "text": "Deal. Ich bin pünktlich da.", "time": "18:01" }
+  ],
+
+  "event-4": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "noah", "text": "Rooftop Sunset Drinks 😍 Wie ist der Dresscode? Eher fancy oder chill?", "time": "18:22" },
+    { "from": "me", "text": "Ich geh chill – aber bisschen clean. Kein Stress.", "time": "18:23" },
+    { "from": "emma", "text": "Same. Hauptsache sunset + gute Vibes.", "time": "18:24" },
+    { "from": "tobi", "text": "Sind die Plätze begrenzt? Nicht dass wir oben stehen wie NPCs 😂", "time": "18:25" },
+    { "from": "emma", "text": "Ich check’s vor Ort. Treffen wir uns 10 Min vorher unten?", "time": "18:26" },
+    { "from": "me", "text": "Yes, unten am Eingang klingt gut.", "time": "18:27" }
+  ],
+
+  "event-5": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "benni", "text": "Casual Run Club: wie schnell lauft ihr so? Ich bin eher entspannt unterwegs 😅", "time": "09:12" },
+    { "from": "me", "text": "Same, kein Race. Ich will einfach locker laufen und Kaffee danach.", "time": "09:13" },
+    { "from": "sophie", "text": "Anfängerfreundlich klingt gut. 5km? 7km? Irgendwas in dem Bereich?", "time": "09:14" },
+    { "from": "ali", "text": "Ich wär für 5–6km und dann Pause.", "time": "09:15" },
+    { "from": "benni", "text": "Perfekt. Treffen wir uns 10 Min vorher am Startpunkt?", "time": "09:16" },
+    { "from": "me", "text": "Ja, ich bin da. Hab ne schwarze Cap auf.", "time": "09:17" }
+  ],
+
+  "dummy-1": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "mia", "text": "Karaoke… okay ich bin nervös 😂 Welche Songs gehen immer?", "time": "19:02" },
+    { "from": "me", "text": "Alles was die Leute mitsingen können. Klassiker retten immer 😄", "time": "19:03" },
+    { "from": "david", "text": "Wenn jemand 'Mr. Brightside' anmacht, bin ich dabei.", "time": "19:04" },
+    { "from": "mia", "text": "Deal. Treffen wir uns 10 Min vorher, damit wir nicht alleine reinmüssen?", "time": "19:05" },
+    { "from": "me", "text": "Ja safe.", "time": "19:06" }
+  ],
+
+  "dummy-2": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "nora", "text": "Coffee & Co-Work klingt nach genau meinem Vibe. Bringt ihr Laptops mit?", "time": "10:08" },
+    { "from": "me", "text": "Ja, ich safe. Ich mach bisschen Orga/Code und so.", "time": "10:09" },
+    { "from": "sam", "text": "Nice. Gibt’s Steckdosen da? 😅", "time": "10:10" },
+    { "from": "nora", "text": "Notfalls Powerbank. Wollen wir uns direkt drin an nem Tisch treffen?", "time": "10:11" },
+    { "from": "me", "text": "Ja, ich schreib kurz wenn ich da bin.", "time": "10:12" }
+  ],
+
+  "dummy-3": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "jonas", "text": "Indie Live Session – wer kennt die Band? Oder gehen wir blind rein? 😄", "time": "20:18" },
+    { "from": "me", "text": "Blind ist manchmal am besten. Hauptsache gute Stimmung.", "time": "20:19" },
+    { "from": "lea", "text": "Ich bring noch ne Freundin mit, wenn das okay ist.", "time": "20:20" },
+    { "from": "jonas", "text": "Klar! Treffen wir uns 10 Min vorher vor dem Eingang?", "time": "20:21" },
+    { "from": "me", "text": "Yes, passt.", "time": "20:22" }
+  ],
+
+  "dummy-4": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "paul", "text": "Museum Late klingt cool. Ist das eher ruhig oder auch bisschen social?", "time": "18:40" },
+    { "from": "me", "text": "Ich glaub ruhig, aber man kann easy quatschen beim Rumlaufen.", "time": "18:41" },
+    { "from": "sara", "text": "Ich mag’s, wenn’s nicht so steif ist. Wollen wir zusammen rein?", "time": "18:42" },
+    { "from": "paul", "text": "Ja, 10 Min vorher vorm Eingang?", "time": "18:43" },
+    { "from": "me", "text": "Deal.", "time": "18:44" }
+  ],
+
+  "dummy-5": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "ines", "text": "Salsa Beginner Meetup: ich kann literally gar nichts 😅", "time": "17:20" },
+    { "from": "me", "text": "Perfekt, dann sind wir schon zwei. Anfänger friendly ist das Ziel 😂", "time": "17:21" },
+    { "from": "mark", "text": "Same. Wenn ich über meine eigenen Füße falle, bitte ignorieren.", "time": "17:22" },
+    { "from": "ines", "text": "Treffen wir uns vorher kurz, damit’s weniger unangenehm ist?", "time": "17:23" },
+    { "from": "me", "text": "Ja, 10 Min vorher am Eingang.", "time": "17:24" }
+  ],
+
+  "dummy-6": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "toni", "text": "Street Food Crawl 😍 Welche Richtung? Eher spicy oder alles?", "time": "18:05" },
+    { "from": "me", "text": "Alles. Ich bin da komplett flexibel.", "time": "18:06" },
+    { "from": "mina", "text": "Ich vote für 1 spicy Ding und dann was Süßes als Finish.", "time": "18:07" },
+    { "from": "toni", "text": "Stark. Treffen wir uns am Startpunkt 10 Min vorher?", "time": "18:08" },
+    { "from": "me", "text": "Ja, passt.", "time": "18:09" }
+  ],
+
+  "dummy-7": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "alex", "text": "Language Exchange: Englisch/Deutsch mix? Oder alles?", "time": "19:30" },
+    { "from": "me", "text": "Ich glaub alles. Ich kann Englisch safe, bisschen Spanisch auch.", "time": "19:31" },
+    { "from": "zoe", "text": "Nice. Ich bin eher englisch, aber will deutsch üben.", "time": "19:32" },
+    { "from": "alex", "text": "Wollen wir zusammen rein? 10 Min vorher am Eingang?", "time": "19:33" },
+    { "from": "me", "text": "Yes.", "time": "19:34" }
+  ],
+
+  "dummy-8": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "kai", "text": "Photography Walk: Handy reicht oder bringt ihr Kameras?", "time": "14:02" },
+    { "from": "me", "text": "Handy reicht safe. Wenn du Kamera hast, nice, aber kein Muss.", "time": "14:03" },
+    { "from": "lisa", "text": "Ich hab ne kleine Fuji dabei. Aber locker, kein Profi-Ding.", "time": "14:04" },
+    { "from": "kai", "text": "Perfekt. Treffen wir uns 10 Min vorher?", "time": "14:05" },
+    { "from": "me", "text": "Ja.", "time": "14:06" }
+  ],
+
+  "dummy-9": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "marco", "text": "Startup Drinks: ist das eher networking cringe oder entspannt?", "time": "18:50" },
+    { "from": "me", "text": "Ich geh da entspannt rein. Wenn’s cringe wird, reden wir über Serien 😂", "time": "18:51" },
+    { "from": "lara", "text": "Same. Ich kann nicht dieses 'So what do you do?' nonstop.", "time": "18:52" },
+    { "from": "marco", "text": "Deal. Treffen wir uns vorher kurz?", "time": "18:53" },
+    { "from": "me", "text": "10 Min vorher am Eingang passt.", "time": "18:54" }
+  ],
+
+  "dummy-10": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "jan", "text": "Casual Basketball: ich bin rusty 😅 Wird das locker oder ernst?", "time": "16:10" },
+    { "from": "me", "text": "Locker bitte. Ich bin auch nicht in NBA-Form 😂", "time": "16:11" },
+    { "from": "sven", "text": "Same. Hauptsache bisschen spielen und danach chillen.", "time": "16:12" },
+    { "from": "jan", "text": "Top. 10 Min vorher am Court?", "time": "16:13" },
+    { "from": "me", "text": "Yes.", "time": "16:14" }
+  ],
+
+  "dummy-11": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "selin", "text": "Yoga im Park klingt mega. Bringt ihr Matten mit?", "time": "08:45" },
+    { "from": "me", "text": "Ja, ich nehm meine mit. Notfalls Handtuch geht auch.", "time": "08:46" },
+    { "from": "franzi", "text": "Ich hab noch ne extra Matte, falls jemand braucht.", "time": "08:47" },
+    { "from": "selin", "text": "Sweet. Treffen wir uns 10 Min vorher am Spot?", "time": "08:48" },
+    { "from": "me", "text": "Ja.", "time": "08:49" }
+  ],
+
+  "dummy-12": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "piet", "text": "Boardgames Drop-in: ich komm alleine, ist das weird? 😅", "time": "18:12" },
+    { "from": "me", "text": "Überhaupt nicht. Genau dafür ist der Chat da.", "time": "18:13" },
+    { "from": "maya", "text": "Ich komm auch solo. Lass einfach zusammen rein.", "time": "18:14" },
+    { "from": "piet", "text": "Okay nice. 10 Min vorher?", "time": "18:15" },
+    { "from": "me", "text": "Deal.", "time": "18:16" }
+  ],
+
+  "dummy-13": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "tom", "text": "Open Mic Comedy: bitte sagt mir, dass das nicht super unangenehm wird 😂", "time": "19:05" },
+    { "from": "me", "text": "Wenn’s awkward wird, lachen wir halt trotzdem 😄", "time": "19:06" },
+    { "from": "jule", "text": "Ich liebe cringe comedy, also ich bin safe happy.", "time": "19:07" },
+    { "from": "tom", "text": "Treffen wir uns 10 Min vorher?", "time": "19:08" },
+    { "from": "me", "text": "Ja.", "time": "19:09" }
+  ],
+
+  "dummy-14": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "hanna", "text": "Art Gallery Hop: eher rumlaufen & quatschen oder richtig konzentriert?", "time": "17:40" },
+    { "from": "me", "text": "Ich mach beides. Erst schauen, dann snacken/reden.", "time": "17:41" },
+    { "from": "nico", "text": "Same. Kunst + danach Kaffee, perfekt.", "time": "17:42" },
+    { "from": "hanna", "text": "Treffen wir uns 10 Min vorher vorm Eingang?", "time": "17:43" },
+    { "from": "me", "text": "Ja.", "time": "17:44" }
+  ],
+
+  "dummy-15": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "viktor", "text": "Run & Coffee: ich komm wegen Kaffee. Laufen ist Bonus 😅", "time": "09:30" },
+    { "from": "me", "text": "Fair. Ich auch eher 'run for coffee'.", "time": "09:31" },
+    { "from": "sina", "text": "Wie lang lauft ihr ungefähr?", "time": "09:32" },
+    { "from": "viktor", "text": "Hoffentlich entspannt. Treffen 10 Min vorher?", "time": "09:33" },
+    { "from": "me", "text": "Yes.", "time": "09:34" }
+  ],
+
+  "dummy-16": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "karo", "text": "Vintage Market: ich suche ne Jacke. Irgendwelche Tipps? 😄", "time": "11:05" },
+    { "from": "me", "text": "Früh da sein und Geduld mitbringen, dann findet man echt Schätze.", "time": "11:06" },
+    { "from": "mert", "text": "Und Bargeld mitnehmen, sonst Drama.", "time": "11:07" },
+    { "from": "karo", "text": "True. Treffen wir uns am Eingang 10 Min vorher?", "time": "11:08" },
+    { "from": "me", "text": "Ja.", "time": "11:09" }
+  ],
+
+  "dummy-17": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "eva", "text": "Film Club Screening: danach noch reden oder direkt raus?", "time": "19:45" },
+    { "from": "me", "text": "Ich wär für kurz quatschen danach. Sonst fühlt’s sich unvollständig an 😄", "time": "19:46" },
+    { "from": "milan", "text": "Same. Ich will immer wissen, ob ich was verpasst hab.", "time": "19:47" },
+    { "from": "eva", "text": "Cool. Treffen 10 Min vorher vorm Eingang?", "time": "19:48" },
+    { "from": "me", "text": "Deal.", "time": "19:49" }
+  ],
+
+  "dummy-18": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "lenn", "text": "Book Swap: bringe 2–3 Bücher. Gibt’s ein Thema?", "time": "16:25" },
+    { "from": "me", "text": "Ich bring Random. Vielleicht finden wir was Unerwartetes.", "time": "16:26" },
+    { "from": "mara", "text": "Ich bring ein paar Romane + ein Sachbuch. Bin gespannt.", "time": "16:27" },
+    { "from": "lenn", "text": "Nice. Treffen wir uns 10 Min vorher?", "time": "16:28" },
+    { "from": "me", "text": "Ja.", "time": "16:29" }
+  ],
+
+  "dummy-19": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "jana", "text": "Picnic Meetup: bringt jeder was mit? 😄", "time": "13:10" },
+    { "from": "me", "text": "Ich bring Snacks. Klassiker.", "time": "13:11" },
+    { "from": "rico", "text": "Ich kann Getränke mitbringen.", "time": "13:12" },
+    { "from": "jana", "text": "Top. Treffen wir uns am Spot 10 Min vorher?", "time": "13:13" },
+    { "from": "me", "text": "Deal.", "time": "13:14" }
+  ],
+
+  "dummy-20": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "svenja", "text": "Tech Talk Lightning Rounds: ist das sehr nerdy oder eher locker?", "time": "18:15" },
+    { "from": "me", "text": "Lightning ist meist locker. Kurz, kein Roman.", "time": "18:16" },
+    { "from": "omar", "text": "Ich hör zu und nicke professionell 😂", "time": "18:17" },
+    { "from": "svenja", "text": "Perfekt. Treffen 10 Min vorher am Eingang?", "time": "18:18" },
+    { "from": "me", "text": "Ja.", "time": "18:19" }
+  ],
+
+  "dummy-21": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "phil", "text": "Craft Beer Tasting: irgendwer kennt sich aus? Ich bin einfach durstig 😄", "time": "19:20" },
+    { "from": "me", "text": "Same. Ich kann höchstens sagen 'schmeckt gut' 😂", "time": "19:21" },
+    { "from": "lena", "text": "Ich kann ein bisschen was erklären, aber entspannt.", "time": "19:22" },
+    { "from": "phil", "text": "Top. Treffen 10 Min vorher?", "time": "19:23" },
+    { "from": "me", "text": "Deal.", "time": "19:24" }
+  ],
+
+  "dummy-22": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "yasmin", "text": "Chess in the Café: ich bin Anfängerin, aber hab Bock.", "time": "17:05" },
+    { "from": "me", "text": "Perfekt, dann ist’s nicht so ernst. Ich bin auch eher casual.", "time": "17:06" },
+    { "from": "louis", "text": "Ich bring ein kleines Brett mit, falls keins da ist.", "time": "17:07" },
+    { "from": "yasmin", "text": "Nice. Treffen wir uns 10 Min vorher drin?", "time": "17:08" },
+    { "from": "me", "text": "Ja.", "time": "17:09" }
+  ],
+
+  "dummy-23": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "mel", "text": "Sunset Spree Walk: hoffe auf gutes Wetter. Sonst wird’s traurig 😅", "time": "19:10" },
+    { "from": "me", "text": "Wenn’s bewölkt ist, tun wir so als wäre es 'moody aesthetic'.", "time": "19:11" },
+    { "from": "nik", "text": "Moody aesthetic ist mein zweiter Vorname 😂", "time": "19:12" },
+    { "from": "mel", "text": "Treffen 10 Min vorher am Startpunkt?", "time": "19:13" },
+    { "from": "me", "text": "Deal.", "time": "19:14" }
+  ],
+
+  "dummy-24": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "sara", "text": "Brunch Meetup: ich komm wegen Pancakes, keine Scham 😄", "time": "10:20" },
+    { "from": "me", "text": "Absolut keine Scham. Pancakes sind der Sinn des Lebens.", "time": "10:21" },
+    { "from": "jon", "text": "Ich hoffe auf Kaffee ohne Ende.", "time": "10:22" },
+    { "from": "sara", "text": "Treffen wir uns 10 Min vorher vorm Eingang?", "time": "10:23" },
+    { "from": "me", "text": "Ja.", "time": "10:24" }
+  ],
+
+  "dummy-25": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "luca", "text": "Design Crit Night: ich hab bisschen Angst um mein Ego 😂", "time": "18:00" },
+    { "from": "me", "text": "Ich bin da nur für konstruktiv. Versprochen 😄", "time": "18:01" },
+    { "from": "aya", "text": "Same. Wir machen’s nett, kein Roast.", "time": "18:02" },
+    { "from": "luca", "text": "Okay gut. Treffen 10 Min vorher?", "time": "18:03" },
+    { "from": "me", "text": "Deal.", "time": "18:04" }
+  ],
+
+  "dummy-26": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "mia", "text": "Puzzle Night klingt weirdly gemütlich. Bringt ihr Snacks?", "time": "19:05" },
+    { "from": "me", "text": "Ohne Snacks kein Puzzle. Gesetz.", "time": "19:06" },
+    { "from": "kevin", "text": "Ich bring Chips. Standard.", "time": "19:07" },
+    { "from": "mia", "text": "Perfekt. Treffen 10 Min vorher?", "time": "19:08" },
+    { "from": "me", "text": "Ja.", "time": "19:09" }
+  ],
+
+  "dummy-27": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "hana", "text": "K-Pop Dance Class: ich kann gar nicht tanzen, aber ich will 😂", "time": "17:15" },
+    { "from": "me", "text": "Same. Wir tun so als wäre es Absicht.", "time": "17:16" },
+    { "from": "jin", "text": "Keine Sorge, alle starten irgendwo. Wird lustig.", "time": "17:17" },
+    { "from": "hana", "text": "Treffen wir uns 10 Min vorher?", "time": "17:18" },
+    { "from": "me", "text": "Deal.", "time": "17:19" }
+  ],
+
+  "dummy-28": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "noa", "text": "Ramen Meetup: ich hab so Hunger, ich komm nur dafür 😄", "time": "18:35" },
+    { "from": "me", "text": "Same. Ich bin Team extra spicy.", "time": "18:36" },
+    { "from": "vera", "text": "Ich bin Team 'mild pls' 😂", "time": "18:37" },
+    { "from": "noa", "text": "Treffen 10 Min vorher am Eingang?", "time": "18:38" },
+    { "from": "me", "text": "Ja.", "time": "18:39" }
+  ],
+
+  "dummy-29": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "tom", "text": "Cycling Crew: Tempo eher locker oder sportlich?", "time": "08:10" },
+    { "from": "me", "text": "Locker wäre mir lieber. Ich will nicht sterben 😅", "time": "08:11" },
+    { "from": "kat", "text": "Same. Danach Kaffee wäre optimal.", "time": "08:12" },
+    { "from": "tom", "text": "Treffen 10 Min vorher am Start?", "time": "08:13" },
+    { "from": "me", "text": "Deal.", "time": "08:14" }
+  ],
+
+  "dummy-30": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "jona", "text": "Sustainability Circle: ist das eher Diskussion oder auch Aktionen?", "time": "18:25" },
+    { "from": "me", "text": "Ich hoffe entspannt + praktisch. Nicht nur reden.", "time": "18:26" },
+    { "from": "leo", "text": "Ich bring Ideen mit. Mal schauen.", "time": "18:27" },
+    { "from": "jona", "text": "Treffen wir uns 10 Min vorher?", "time": "18:28" },
+    { "from": "me", "text": "Ja.", "time": "18:29" }
+  ],
+
+  "dummy-31": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "robin", "text": "Jazz Bar Hangout: jemand weiß ob’s Eintritt kostet?", "time": "19:10" },
+    { "from": "me", "text": "Keine Ahnung, aber wir finden’s raus. Hauptsache Jazz.", "time": "19:11" },
+    { "from": "emil", "text": "Wenn’s zu voll ist, stehen wir halt draußen und tun so als wäre das der Plan 😄", "time": "19:12" },
+    { "from": "robin", "text": "Treffen 10 Min vorher?", "time": "19:13" },
+    { "from": "me", "text": "Deal.", "time": "19:14" }
+  ],
+
+  "dummy-32": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "lisa", "text": "Poetry Reading: ich hoffe es wird nicht zu dramatisch 😂", "time": "18:10" },
+    { "from": "me", "text": "Wenn’s dramatisch wird, nennen wir’s 'intensiv'.", "time": "18:11" },
+    { "from": "oskar", "text": "Ich komm für die Vibes. Und vielleicht ein bisschen cringe.", "time": "18:12" },
+    { "from": "lisa", "text": "Treffen 10 Min vorher?", "time": "18:13" },
+    { "from": "me", "text": "Ja.", "time": "18:14" }
+  ],
+
+  "dummy-33": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "mia", "text": "Trivia Warmup: okay, wer ist hier gut in random Fakten? 😄", "time": "18:35" },
+    { "from": "me", "text": "Ich bin gut in Sachen die niemand braucht 😂", "time": "18:36" },
+    { "from": "ben", "text": "Ich kann Flaggen. Das ist mein Talent.", "time": "18:37" },
+    { "from": "mia", "text": "Perfekt. Treffen 10 Min vorher am Eingang?", "time": "18:38" },
+    { "from": "me", "text": "Deal.", "time": "18:39" }
+  ],
+
+  "dummy-34": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "nina", "text": "Study Session: ich brauch Motivation. Bitte sagt mir, dass ihr auch wirklich lernt 😂", "time": "14:00" },
+    { "from": "me", "text": "Ich versprech’s. Zumindest die ersten 30 Min.", "time": "14:01" },
+    { "from": "sam", "text": "Ich bring Snacks als Bestechung für Fokus.", "time": "14:02" },
+    { "from": "nina", "text": "Okay, überzeugt. Treffen 10 Min vorher?", "time": "14:03" },
+    { "from": "me", "text": "Ja.", "time": "14:04" }
+  ],
+
+  "dummy-35": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "lara", "text": "Thrift Shopping Buddy: ich brauch jemanden, der ehrlich ist 😅", "time": "12:10" },
+    { "from": "me", "text": "Ich bin brutal ehrlich, aber nett.", "time": "12:11" },
+    { "from": "mika", "text": "Same. Wenn’s nicht sitzt, sagen wir’s.", "time": "12:12" },
+    { "from": "lara", "text": "Perfekt. Treffen 10 Min vorher?", "time": "12:13" },
+    { "from": "me", "text": "Deal.", "time": "12:14" }
+  ],
+
+  "dummy-36": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "josh", "text": "Skatepark Meetup: bin Anfänger. Ist das okay?", "time": "16:45" },
+    { "from": "me", "text": "Klar, Anfänger sind willkommen. Sonst wär’s ja pointless.", "time": "16:46" },
+    { "from": "maya", "text": "Ich bring Protektoren, safety first 😄", "time": "16:47" },
+    { "from": "josh", "text": "Nice. Treffen 10 Min vorher am Park?", "time": "16:48" },
+    { "from": "me", "text": "Ja.", "time": "16:49" }
+  ],
+
+  "dummy-37": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "leon", "text": "Climbing Intro: ich hab Höhenangst, aber ich probier’s 😅", "time": "17:05" },
+    { "from": "me", "text": "Respekt. Intro ist dafür perfekt, langsam rantasten.", "time": "17:06" },
+    { "from": "jess", "text": "Wir machen’s entspannt. Kein Druck.", "time": "17:07" },
+    { "from": "leon", "text": "Treffen wir uns 10 Min vorher?", "time": "17:08" },
+    { "from": "me", "text": "Deal.", "time": "17:09" }
+  ],
+
+  "dummy-38": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "sara", "text": "Museum Tour Buddy: klingt wholesome. Wer ist dabei?", "time": "18:20" },
+    { "from": "me", "text": "Ich. Ich bin eher der 'kurz schauen, dann Kaffee' Typ 😄", "time": "18:21" },
+    { "from": "tim", "text": "Same. Ich komm auch.", "time": "18:22" },
+    { "from": "sara", "text": "Treffen 10 Min vorher am Eingang?", "time": "18:23" },
+    { "from": "me", "text": "Ja.", "time": "18:24" }
+  ],
+
+  "dummy-39": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "lea", "text": "Dog Walk Group: ich hab keinen Hund, darf ich trotzdem? 😂", "time": "15:10" },
+    { "from": "me", "text": "Wenn du Hunde magst, bist du qualifiziert 😄", "time": "15:11" },
+    { "from": "mona", "text": "Mehr Leute zum Streicheln ist immer gut.", "time": "15:12" },
+    { "from": "lea", "text": "Perfekt. Treffen 10 Min vorher?", "time": "15:13" },
+    { "from": "me", "text": "Deal.", "time": "15:14" }
+  ],
+
+  "dummy-40": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "tobi", "text": "Cooking Session: was kochen wir? Bitte nicht zu kompliziert 😅", "time": "18:00" },
+    { "from": "me", "text": "Wenn’s zu kompliziert wird, machen wir Pasta. Ende.", "time": "18:01" },
+    { "from": "elena", "text": "Pasta + Salat = professionell genug 😄", "time": "18:02" },
+    { "from": "tobi", "text": "Deal. Treffen 10 Min vorher?", "time": "18:03" },
+    { "from": "me", "text": "Ja.", "time": "18:04" }
+  ],
+
+  "dummy-41": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "mert", "text": "Afterwork Ping-Pong: ich bin so mittelmäßig, zählt das? 😂", "time": "18:15" },
+    { "from": "me", "text": "Mittelmäßig ist der perfekte Skill-Level.", "time": "18:16" },
+    { "from": "nina", "text": "Ich bring gute Laune und schlechte Aufschläge.", "time": "18:17" },
+    { "from": "mert", "text": "Top. Treffen 10 Min vorher?", "time": "18:18" },
+    { "from": "me", "text": "Deal.", "time": "18:19" }
+  ],
+
+  "dummy-42": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "alex", "text": "Tabletop RPG One-shot: muss man Erfahrung haben?", "time": "17:50" },
+    { "from": "me", "text": "Ich hoffe nicht, ich bin auch eher beginner 😅", "time": "17:51" },
+    { "from": "jo", "text": "One-shot ist perfekt zum Reinkommen. Kein Stress.", "time": "17:52" },
+    { "from": "alex", "text": "Okay nice. Treffen 10 Min vorher?", "time": "17:53" },
+    { "from": "me", "text": "Ja.", "time": "17:54" }
+  ],
+
+  "dummy-43": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "lina", "text": "Ice Cream Walk: wichtig: welche Sorte ist GOAT? 😄", "time": "16:05" },
+    { "from": "me", "text": "Pistazie. Ohne Diskussion.", "time": "16:06" },
+    { "from": "ben", "text": "Schoko. Ich bin basic.", "time": "16:07" },
+    { "from": "lina", "text": "Okay, wir testen beides. Treffen 10 Min vorher?", "time": "16:08" },
+    { "from": "me", "text": "Deal.", "time": "16:09" }
+  ],
+
+  "dummy-44": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "selin", "text": "Meditation Meetup: ich hoffe es wird nicht zu esoterisch 😅", "time": "18:30" },
+    { "from": "me", "text": "Same. Ich bin eher Team 'ruhig atmen' und fertig.", "time": "18:31" },
+    { "from": "tom", "text": "Wird entspannt, glaub ich. Treffen wir uns vorher?", "time": "18:32" },
+    { "from": "selin", "text": "Ja, 10 Min vorher am Eingang?", "time": "18:33" },
+    { "from": "me", "text": "Ja.", "time": "18:34" }
+  ],
+
+  "dummy-45": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "max", "text": "Maker Space Tour: ich will 3D-Drucker sehen 😄", "time": "17:10" },
+    { "from": "me", "text": "Same. Und hoffen, dass ich nichts kaputt mache 😂", "time": "17:11" },
+    { "from": "lea", "text": "Ich hab schon mal einen benutzt, kann bisschen erklären.", "time": "17:12" },
+    { "from": "max", "text": "Perfekt. Treffen 10 Min vorher?", "time": "17:13" },
+    { "from": "me", "text": "Deal.", "time": "17:14" }
+  ],
+
+  "dummy-46": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "jule", "text": "Craft Workshop: was machen wir? Ich bin gespannt.", "time": "16:40" },
+    { "from": "me", "text": "Hauptsache kreativ und nicht zu messy 😄", "time": "16:41" },
+    { "from": "sam", "text": "Messy gehört dazu 😂", "time": "16:42" },
+    { "from": "jule", "text": "Treffen 10 Min vorher?", "time": "16:43" },
+    { "from": "me", "text": "Ja.", "time": "16:44" }
+  ],
+
+  "dummy-47": [
+    { "type": "system", "text": "Chat ist offen – connecte dich vor dem Event" },
+    { "from": "nico", "text": "City History Walk: ich weiß nix über Berlin, bitte habt Geduld 😅", "time": "18:05" },
+    { "from": "me", "text": "Same. Ich tu nur so als wüsste ich was.", "time": "18:06" },
+    { "from": "lara", "text": "Wir lernen zusammen. Treffen 10 Min vorher am Start?", "time": "18:07" },
+    { "from": "nico", "text": "Perfekt.", "time": "18:08" },
+    { "from": "me", "text": "Deal.", "time": "18:09" }
+  ]
 }
