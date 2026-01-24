@@ -3,15 +3,17 @@
    ====================================================== */
 
 :root{
-    --bg: #f6f7f9;
-    --surface: rgba(255,255,255,0.86);
+    --bg: #f3f5f8;
+    --bg-strong: #eef1f6;
+    --surface: rgba(255,255,255,0.8);
     --surface-solid: #fff;
     --line: rgba(17,17,17,0.08);
     --text: rgba(17,17,17,0.92);
     --muted: rgba(17,17,17,0.62);
-    --shadow: 0 10px 30px rgba(0,0,0,0.08);
-    --shadow-sm: 0 6px 16px rgba(0,0,0,0.08);
+    --shadow: 0 18px 40px rgba(15,23,42,0.12);
+    --shadow-sm: 0 10px 24px rgba(15,23,42,0.10);
     --radius: 18px;
+    --glow: 0 0 0 1px rgba(255,255,255,0.7) inset, 0 0 0 1px rgba(15,23,42,0.05);
 }
 
 /* ================= App Shell ================= */
@@ -20,7 +22,29 @@
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    background: #f6f7f9;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(99,102,241,0.12), transparent 45%),
+        radial-gradient(circle at 85% 0%, rgba(56,189,248,0.14), transparent 42%),
+        linear-gradient(180deg, var(--bg-strong) 0%, var(--bg) 35%, #f8f9fb 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.app::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 80% 20%, rgba(15,23,42,0.06), transparent 55%),
+        radial-gradient(circle at 20% 90%, rgba(14,116,144,0.08), transparent 50%);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.app > * {
+    position: relative;
+    z-index: 1;background: #f6f7f9;
 }
 
 /* ================= Header ================= */
@@ -36,11 +60,12 @@
 
     padding: 10px 12px;
 
-    background: var(--surface);
+    background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.78));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid rgba(15,23,42,0.06);
+    box-shadow: 0 10px 24px rgba(15,23,42,0.06);
 }
 
 .brand {
@@ -55,6 +80,7 @@
     height: 36px;
     border-radius: 12px;
     display: block;
+    box-shadow: 0 8px 16px rgba(15,23,42,0.15);
 }
 
 .brand-name {
@@ -74,9 +100,9 @@
 
     border-radius: 14px;
     border: 1px solid var(--line);
-    background: var(--surface-solid);
+    background: linear-gradient(180deg, #fff, #f4f6fb);
 
-    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    box-shadow: 0 8px 16px rgba(15,23,42,0.10);
     transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
@@ -162,11 +188,12 @@
 
     padding: 8px 10px;
 
-    background: var(--surface);
+        background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.72));
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid rgba(15,23,42,0.06);
+    box-shadow: 0 8px 22px rgba(15,23,42,0.05);
 
     overflow-x: auto;
     scrollbar-width: none;
@@ -183,9 +210,8 @@
     padding: 7px 11px;
 
     border-radius: 999px;
-    border: 1px solid rgba(17,17,17,0.10);
-
-    background: var(--surface-solid);
+    border: 1px solid rgba(15,23,42,0.08);
+    background: linear-gradient(180deg, #fff, #f7f9fc);
     color: var(--text);
 
     font-size: 12.5px;
@@ -231,7 +257,7 @@
     flex: 1;
     padding: 10px;
     overflow: hidden;
-    background: var(--bg);
+    background: transparent;
     padding-top: 12px;
 }
 
@@ -239,9 +265,19 @@
     height: 100%;
     border-radius: 22px;
     overflow: hidden;
-    background: var(--surface-solid);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow);
+    background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,249,252,0.98));
+    border: 1px solid rgba(15,23,42,0.10);
+    box-shadow: var(--shadow), var(--glow);
+    position: relative;
+}
+
+.map-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+    pointer-events: none;
 }
 
 .leaflet-control-zoom{
@@ -269,12 +305,11 @@
     transform: translateX(-50%);
     padding: 8px 12px;
     border-radius: 999px;
-    background: rgba(17,17,17,0.78);
+    background: rgba(15,23,42,0.82);
     color: #fff;
     font-size: 12px;
     letter-spacing: -0.01em;
-
-    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 12px 26px rgba(15,23,42,0.22);
     z-index: 900;
 }
 
@@ -283,15 +318,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #fff;
+    background: linear-gradient(180deg, #fff, #f7f8fb);
     padding: 14px 16px 16px;
     border-top-left-radius: 18px;
     border-top-right-radius: 18px;
     transform: translateY(0);
     transition: transform 240ms ease;
     z-index: 1001;
-    box-shadow: 0 -18px 50px rgba(0,0,0,0.16);
-    border-top: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 -22px 60px rgba(15,23,42,0.18);
+    border-top: 1px solid rgba(15,23,42,0.08);
 }
 
 .bottom-sheet--hidden {
@@ -340,8 +375,8 @@
     min-height: 34px;
 
     border-radius: 999px;
-    border: 1px solid rgba(0,0,0,0.10);
-    background: #f6f7f9;
+    border: 1px solid rgba(15,23,42,0.10);
+    background: linear-gradient(180deg, #f8fafc, #eef2f7);
     font-size: 12px;
     white-space: nowrap;
 }
@@ -358,7 +393,8 @@
     gap: 8px;
     padding: 7px 10px;
     border-radius: 999px;
-    border: 1px solid rgba(0,0,0,0.10);
+    border: 1px solid rgba(15,23,42,0.10);
+    background: rgba(255,255,255,0.9);
     font-size: 12px;
 }
 
@@ -384,17 +420,16 @@
     flex: 1;
     padding: 12px;
     border-radius: 14px;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: #fff;
+    border: 1px solid rgba(15,23,42,0.12);
+    background: linear-gradient(180deg, #fff, #f3f5f9);
     font-weight: 600;
     cursor: pointer;
     transition: transform 120ms ease, box-shadow 120ms ease;
 }
 
 .btn-primary {
-    background: #111;
-    color: #fff;
-    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    background: linear-gradient(135deg, #111827, #2563eb);    color: #fff;
+    box-shadow: 0 14px 30px rgba(37,99,235,0.28);
 }
 
 .btn-primary:hover {
@@ -402,7 +437,7 @@
 }
 
 .btn-secondary:hover {
-    background: rgba(0,0,0,0.03);
+    background: rgba(15,23,42,0.04);
 }
 
 .btn:disabled {
