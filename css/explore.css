@@ -57,8 +57,8 @@
 }
 
 .brand-name {
-    font-weight: 750;
-    letter-spacing: -0.02em;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     color: var(--text);
     font-size: 15px;
     line-height: 1;
@@ -213,7 +213,7 @@
 .chip--grad{
     background: var(--chip-bg, rgba(59,130,246,0.14));
     color: var(--chip-fg, rgba(30,64,175,0.92));
-    border-color: rgba(0,0,0,0.06);
+    border-color: rgba(17,17,17,0.08);
 }
 
 .chip--grad.chip--active{
