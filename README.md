@@ -94,7 +94,7 @@ connactiv/
 │
 └─ pitch/
    └─ skript.md           # Pitch-Video-Skript
-
+```
 ---
 
 ### Dateien im Detail
@@ -154,7 +154,6 @@ Beispiel:
     "attendeesCount": 8,
     "tags": ["low pressure", "english friendly"]
 }
-
 ```
 
 #### `chats.json`
