@@ -2,6 +2,18 @@
    Connactiv – Explore UI (final)
    ====================================================== */
 
+:root{
+    --bg: #f6f7f9;
+    --surface: rgba(255,255,255,0.86);
+    --surface-solid: #fff;
+    --line: rgba(17,17,17,0.08);
+    --text: rgba(17,17,17,0.92);
+    --muted: rgba(17,17,17,0.62);
+    --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    --shadow-sm: 0 6px 16px rgba(0,0,0,0.08);
+    --radius: 18px;
+}
+
 /* ================= App Shell ================= */
 
 .app {
@@ -14,166 +26,234 @@
 /* ================= Header ================= */
 
 .app-header {
-    position: relative; /* wichtig für Dropdown */
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 14px;
-    background: #fff;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+
+    padding: 12px 16px;
+
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid var(--line);
 }
 
 .brand {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
 }
 
 .brand-logo {
     width: 28px;
     height: 28px;
+    border-radius: 8px;
 }
 
 .brand-name {
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .icon-button {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     display: grid;
     place-items: center;
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.10);
-    background: #fff;
-    cursor: pointer;
-    transition: background 120ms ease, transform 120ms ease;
+
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--surface-solid);
+
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
 .icon-button:hover {
-    background: rgba(0,0,0,0.03);
+    box-shadow: var(--shadow-sm);
 }
 
 .icon-button:active {
-    transform: translateY(1px);
+    transform: scale(0.98);
 }
 
-.menu {
+.menu{
     position: absolute;
     top: 58px;
     right: 14px;
-    width: 210px;
+    width: 220px;
+
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+
+    box-shadow: var(--shadow);
     padding: 8px;
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.10);
-    border-radius: 14px;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.16);
-    z-index: 1200;
-    transform-origin: top right;
-    transform: translateY(-6px) scale(0.98);
+
     opacity: 0;
+    transform: translateY(-6px);
     pointer-events: none;
     transition: opacity 140ms ease, transform 140ms ease;
 }
 
-.menu--open {
+.menu--open{
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
-.menu-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 12px;
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+
+    width: 100%;
+    padding: 10px 10px;
+
     border-radius: 12px;
-    text-decoration: none;
+    border: 0;
+    background: transparent;
+
+    text-align: left;
+    color: var(--text);
+    font-weight: 600;
     font-size: 14px;
-    color: rgba(17,17,17,0.90);
-    transition: background 120ms ease;
+
+    cursor: pointer;
 }
 
-.menu-item:hover {
+.menu-item:hover{
     background: rgba(0,0,0,0.04);
 }
 
-.menu-divider {
-    height: 1px;
-    margin: 6px 4px;
-    background: rgba(0,0,0,0.08);
+.menu-item:active{
+    background: rgba(0,0,0,0.06);
 }
 
-.menu-backdrop {
+.menu-backdrop{
     position: fixed;
     inset: 0;
-    z-index: 1100;
+    background: rgba(0,0,0,0.10);
+    z-index: 1150;
 }
+
 
 .menu-backdrop--hidden {
     display: none;
 }
 
-.action-bar {
-    display: flex;
+.action-bar{
+    position: sticky;
+    top: 66px; /* passt zur Headerhöhe; falls es nicht exakt sitzt: 62–72px testen */
+    z-index: 1100;
+
+    display:flex;
     gap: 8px;
-    padding: 10px 12px;
+
+    padding: 10px 14px;
+
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid var(--line);
+
     overflow-x: auto;
-    background: #fff;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    scrollbar-width: none;
+}
+.action-bar::-webkit-scrollbar{ display:none; }
+
+.action-bar{
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 92%, rgba(0,0,0,0));
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 92%, rgba(0,0,0,0));
 }
 
-.action-bar::-webkit-scrollbar {
-    height: 8px;
-}
-.action-bar::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.10);
-    border-radius: 999px;
-}
-
-.chip {
+.chip{
     flex: 0 0 auto;
     padding: 8px 12px;
+
     border-radius: 999px;
-    border: 1px solid rgba(0,0,0,0.12);
-    background: #fff;
+    border: 1px solid rgba(17,17,17,0.10);
+
+    background: var(--surface-solid);
+    color: var(--text);
+
     font-size: 13px;
-    line-height: 1;
+    font-weight: 550;
+    letter-spacing: -0.01em;
+
     white-space: nowrap;
-    cursor: pointer;
-    transition: transform 120ms ease, box-shadow 120ms ease;
+
+    transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+    }
+
+.chip:hover{
+    box-shadow: 0 6px 14px rgba(0,0,0,0.06);
 }
 
-.chip--active {
-    border-color: rgba(0,0,0,0.26);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-    transform: translateY(-1px);
+.chip:active{
+    transform: scale(0.98);
 }
 
-.chip--grad {
+.chip--active{
+    border-color: rgba(17,17,17,0.22);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+
+.chip--grad{
     background: var(--chip-bg, rgba(59,130,246,0.14));
     color: var(--chip-fg, rgba(30,64,175,0.92));
+    border-color: rgba(0,0,0,0.06);
 }
+
+.chip--grad.chip--active{
+    border-color: rgba(0,0,0,0.16);
+}
+
 
 .chip--grad:hover {
     transform: translateY(-1px);
 }
 
-.app-main {
+.app-main{
     position: relative;
     flex: 1;
     padding: 12px;
     overflow: hidden;
+    background: var(--bg);
 }
 
-.map-card {
+.map-card{
     height: 100%;
-    border-radius: 18px;
+    border-radius: 22px;
     overflow: hidden;
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.08);
-    box-shadow: 0 12px 34px rgba(0,0,0,0.10);
+    background: var(--surface-solid);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
 }
+
+.leaflet-control-zoom{
+    border: 1px solid var(--line) !important;
+    box-shadow: var(--shadow-sm) !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+}
+.leaflet-control-zoom a{
+    width: 42px !important;
+    height: 42px !important;
+    line-height: 42px !important;
+}
+
 
 #map {
     height: 100%;
@@ -187,11 +267,13 @@
     transform: translateX(-50%);
     padding: 8px 12px;
     border-radius: 999px;
-    background: rgba(17,17,17,0.86);
+    background: rgba(17,17,17,0.78);
     color: #fff;
     font-size: 12px;
+    letter-spacing: -0.01em;
+
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
     z-index: 900;
-    transition: opacity 200ms ease;
 }
 
 .bottom-sheet {
