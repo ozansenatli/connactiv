@@ -1,7 +1,9 @@
 /* css/globals.css */
 
+body{
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
 
-/* verhindert Seiten-Scroll */
 body.no-scroll {
   overflow: hidden;
   touch-action: none;
