@@ -47,7 +47,7 @@ const CHIP_GRADIENT = [
 // ------------------------------------------------------------
 // DOM
 // ------------------------------------------------------------
-const map = L.map("map", { zoomControl: true }).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+const map = L.map("map", { zoomControl: false }).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
 
 markerLayer.addTo(map);
 
