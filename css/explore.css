@@ -246,10 +246,18 @@
 }
 
 .event-badge {
-    padding: 8px 10px;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    padding: 8px 12px;
+    min-height: 34px;
+
     border-radius: 999px;
     border: 1px solid rgba(0,0,0,0.10);
-    background: rgba(0,0,0,0.03);
+    background: #f6f7f9;
     font-size: 12px;
     white-space: nowrap;
 }
