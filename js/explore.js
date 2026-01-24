@@ -36,12 +36,12 @@ let TAG_STYLE_BY_TAG = {};
 // Farbverlauf (links → rechts, natürlich)
 // ------------------------------------------------------------
 const CHIP_GRADIENT = [
-    { bg: "rgba(245,158,11,0.14)", fg: "rgba(154,52,18,0.92)" },   // amber
-    { bg: "rgba(34,197,94,0.14)",  fg: "rgba(22,101,52,0.92)" },   // green
-    { bg: "rgba(20,184,166,0.14)", fg: "rgba(15,118,110,0.92)" },  // teal
-    { bg: "rgba(59,130,246,0.14)", fg: "rgba(30,64,175,0.92)" },   // blue
-    { bg: "rgba(168,85,247,0.14)", fg: "rgba(107,33,168,0.92)" },  // purple
-    { bg: "rgba(236,72,153,0.12)", fg: "rgba(157,23,77,0.92)" }    // rose
+    { bg: "#fde68a", fg: "#92400e" }, // amber
+    { bg: "#bbf7d0", fg: "#166534" }, // green
+    { bg: "#99f6e4", fg: "#0f766e" }, // teal
+    { bg: "#bfdbfe", fg: "#1e40af" }, // blue
+    { bg: "#e9d5ff", fg: "#6b21a8" }, // purple
+    { bg: "#fbcfe8", fg: "#9d174d" }  // rose
 ];
 
 // ------------------------------------------------------------
