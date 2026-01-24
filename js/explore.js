@@ -53,6 +53,7 @@ markerLayer.addTo(map);
 
 const bottomSheet   = document.getElementById("bottomSheet");
 const sheetBackdrop = document.getElementById("sheetBackdrop");
+const sheetHandle   = bottomSheet?.querySelector(".bottom-sheet__handle");
 
 const eventTitleEl  = document.getElementById("eventTitle");
 const eventSubEl    = document.getElementById("eventSub");
@@ -233,6 +234,40 @@ function applyTagFilter(activeTag) {
 }
 
 // ------------------------------------------------------------
+// Bottom Sheet Swipe (Drag Down to Close)
+// ------------------------------------------------------------
+let sheetDragStartY = 0;
+let sheetDragDelta = 0;
+let isSheetDragging = false;
+
+function handleSheetPointerDown(event) {
+    if (bottomSheet.classList.contains("bottom-sheet--hidden")) return;
+    isSheetDragging = true;
+    sheetDragStartY = event.clientY;
+    sheetDragDelta = 0;
+    bottomSheet.classList.add("bottom-sheet--dragging");
+    sheetHandle?.setPointerCapture(event.pointerId);
+}
+
+function handleSheetPointerMove(event) {
+    if (!isSheetDragging) return;
+    sheetDragDelta = Math.max(0, event.clientY - sheetDragStartY);
+    bottomSheet.style.transform = `translateY(${sheetDragDelta}px)`;
+}
+
+function handleSheetPointerUp() {
+    if (!isSheetDragging) return;
+    const threshold = Math.min(140, bottomSheet.offsetHeight * 0.3);
+    if (sheetDragDelta > threshold) {
+        closeSheet();
+    } else {
+        bottomSheet.style.transform = "";
+        bottomSheet.classList.remove("bottom-sheet--dragging");
+    }
+    isSheetDragging = false;
+}
+
+// ------------------------------------------------------------
 // Bottom Sheet
 // ------------------------------------------------------------
 function openSheet(ev) {
@@ -252,15 +287,20 @@ function openSheet(ev) {
         eventTagsEl.appendChild(tag);
     });
 
-    bottomSheet.classList.remove("bottom-sheet--hidden");
+    bottomSheet.classList.remove("bottom-sheet--hidden", "bottom-sheet--dragging");
+    bottomSheet.style.transform = "";
     sheetBackdrop.classList.remove("backdrop--hidden");
     document.body.classList.add("no-scroll");
 }
 
 function closeSheet() {
     bottomSheet.classList.add("bottom-sheet--hidden");
+    bottomSheet.classList.remove("bottom-sheet--dragging");
+    bottomSheet.style.transform = "";
     sheetBackdrop.classList.add("backdrop--hidden");
     document.body.classList.remove("no-scroll");
+    isSheetDragging = false;
+
 }
 
 // ------------------------------------------------------------
@@ -341,6 +381,10 @@ function addMarkers(events) {
 // ------------------------------------------------------------
 closeSheetBtn?.addEventListener("click", closeSheet);
 sheetBackdrop?.addEventListener("click", closeSheet);
+sheetHandle?.addEventListener("pointerdown", handleSheetPointerDown);
+sheetHandle?.addEventListener("pointermove", handleSheetPointerMove);
+sheetHandle?.addEventListener("pointerup", handleSheetPointerUp);
+sheetHandle?.addEventListener("pointercancel", handleSheetPointerUp);
 
 joinBtn?.addEventListener("click", () => {
     if (!selectedEvent) return;
