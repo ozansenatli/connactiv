@@ -10,6 +10,9 @@ const DEFAULT_ZOOM = 14;
 // ------------------------------------------------------------
 let currentUserLatLng = DEFAULT_CENTER;
 let selectedEvent = null;
+let allEvents = [];
+const markerLayer = L.layerGroup();
+const markerByEventId = new Map(); 
 
 // Tag-Farben: werden EINMAL berechnet und überall wiederverwendet
 let ORDERED_TAGS = [];
@@ -31,6 +34,8 @@ const CHIP_GRADIENT = [
 // DOM
 // ------------------------------------------------------------
 const map = L.map("map", { zoomControl: true }).setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+
+markerLayer.addTo(map);
 
 const bottomSheet   = document.getElementById("bottomSheet");
 const sheetBackdrop = document.getElementById("sheetBackdrop");
@@ -170,27 +175,55 @@ function setUserLocation() {
 // Header Filter Chips
 // ------------------------------------------------------------
 function renderFilterChips(tags) {
+    if (!filterBar) return;
     filterBar.innerHTML = "";
 
     const all = document.createElement("button");
+    all.type = "button";
     all.className = "chip chip--active";
     all.textContent = "Alle";
+    all.dataset.tag = "";
     filterBar.appendChild(all);
 
     tags.forEach(t => {
         const btn = document.createElement("button");
+        btn.type = "button";
         btn.className = "chip chip--grad";
         btn.textContent = t;
+        btn.dataset.tag = t;
         applyTagVars(btn, TAG_STYLE_BY_TAG[t]);
         filterBar.appendChild(btn);
     });
 
-    filterBar.onclick = e => {
-        const btn = e.target.closest(".chip");
+    filterBar.onclick = (e) => {
+        const btn = e.target.closest("button.chip");
         if (!btn) return;
         filterBar.querySelectorAll(".chip").forEach(b => b.classList.remove("chip--active"));
         btn.classList.add("chip--active");
+
+        const tag = btn.dataset.tag;
+        applyTagFilter(tag ? tag : null);
+        closeSheet();
     };
+}
+
+function applyTagFilter(activeTag) {
+    // activeTag === null => alle zeigen
+    allEvents.forEach((ev) => {
+        const marker = markerByEventId.get(ev.id);
+        if (!marker) return;
+
+        const tags = Array.isArray(ev.tags) ? ev.tags : [];
+        const match = !activeTag || tags.some(t =>
+            String(t).trim().toLowerCase() === String(activeTag).trim().toLowerCase()
+        );
+
+        if (match) {
+            if (!markerLayer.hasLayer(marker)) markerLayer.addLayer(marker);
+        } else {
+            if (markerLayer.hasLayer(marker)) markerLayer.removeLayer(marker);
+        }
+    });
 }
 
 // ------------------------------------------------------------
@@ -260,13 +293,20 @@ async function loadEvents() {
 }
 
 function addMarkers(events) {
+    if(!Array.isArray(events)) return;
+
+    markerLayer.clearLayers();
+    markerByEventId.clear();
+
     events.forEach((ev, i) => {
         setTimeout(() => {
-        const m = L.marker([ev.lat, ev.lng]).addTo(map);
+        const m = L.marker([ev.lat, ev.lng]);
         m.on("click", () => {
             closeMenu();
             openSheet(ev);
         });
+        markerLayer.addLayer(m);
+        markerByEventId.set(ev.id, m);
         }, 120 + i * 40);
     });
 }
@@ -278,12 +318,16 @@ function addMarkers(events) {
     setUserLocation();
 
     const events = await loadEvents();
+    allEvents = events;
 
     ORDERED_TAGS = collectUniqueTags(events).sort((a,b)=>a.localeCompare(b,"de"));
     TAG_STYLE_BY_TAG = buildTagStyles(ORDERED_TAGS);
 
     renderFilterChips(ORDERED_TAGS);
-    setTimeout(() => addMarkers(events), 2000);
+    setTimeout(() => {
+        addMarkers(events);
+        applyTagFilter(null);
+    }, 2000);
 })();
 
 // ------------------------------------------------------------
