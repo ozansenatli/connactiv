@@ -131,7 +131,7 @@ connactiv/
 - Setzt Chat-Header (Eventname + Zeit)
 - Zeigt statische Demo-Nachrichten
 
-### `ui.js`
+#### `ui.js`
 Kleine UI.Hilfsfunktionen
 - z.B.:
     - Bottom-Sheet-animationen
