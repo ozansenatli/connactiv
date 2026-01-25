@@ -329,10 +329,6 @@
     top: 132px;
 }
 
-.leaflet-bottom.leaflet-right {
-    bottom: var(--bottom-nav-height);
-}
-
 .leaflet-control-attribution {
     margin-bottom: 0;
 }
