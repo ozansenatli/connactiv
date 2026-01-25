@@ -496,7 +496,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     padding-bottom: 6px;
-
+}
 .event-meta {
     display: flex;
     justify-content: space-between;
