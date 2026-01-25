@@ -467,6 +467,9 @@
     z-index: 1001;
     box-shadow: 0 -22px 60px rgba(2,6,23,0.6);
     border-top: 1px solid rgba(148,163,184,0.18);
+    display: flex;
+    flex-direction: column;
+    max-height: 75vh;
 }
 
 .bottom-sheet--dragging {
@@ -490,7 +493,9 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-}
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 6px;
 
 .event-meta {
     display: flex;
