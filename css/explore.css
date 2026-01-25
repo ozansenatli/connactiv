@@ -329,6 +329,10 @@
     top: 132px;
 }
 
+.leaflet-bottom.leaflet-right {
+    bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 8px);
+}
+
 #map {
     height: 100%;
     width: 100%;
