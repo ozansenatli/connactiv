@@ -561,6 +561,67 @@
     gap: 10px;
 }
 
+.store-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.store-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(15,23,42,0.8);
+    color: #fff;
+    cursor: default;
+    box-shadow: inset 0 0 0 1px rgba(15,23,42,0.12);
+    text-align: left;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.store-button--apple {
+    background: linear-gradient(180deg, #0f172a, #0b1220);
+}
+
+.store-button--google {
+    background: linear-gradient(180deg, #111827, #0f172a);
+}
+
+.store-icon {
+    width: 22px;
+    height: 22px;
+    flex: 0 0 auto;
+    display: block;
+}
+
+.store-icon--apple {
+    fill: #fff;
+}
+
+.store-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.store-text__eyebrow {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+}
+
+.store-text__title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
 .btn {
     flex: 1;
     padding: 12px;
