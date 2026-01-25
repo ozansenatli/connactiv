@@ -1,125 +1,163 @@
-# Pitch-Video Skript – Event Discovery Web-App
+# Pitch-Video Skript – Connactiv (Final)
 
-## Format & Stil
-- Format: Hochkant (9:16)
-- Länge: ca. 2–3 Minuten
-- Stil: Modern, klar, Social-Media-typisch
-- Umsetzung:
-  - Kurze Screenrecordings der Mock-App
-  - Text-Overlays statt langer Erklärungen
-  - Optional ruhiges Voice-over
+## Rahmen
+- **Format:** 9:16 (Hochkant)
+- **Länge:** ca. 2–3 Minuten
+- **Look & Feel:** schnelle Schnitte, UI-Screenrecordings, kurze Text-Overlays  
+- **Audio:** ruhige, moderne Musik, optional Voice-over
 
 ---
 
-## Szene 1 – Einstieg / Problem (0:00–0:20)
+## Szene 1 – Hook: Der „Planlos“-Moment (0:00–0:15)
+**Bild**
+- Person sitzt auf dem Sofa oder in der Bahn.
+- Scrollt durch Instagram / Stories.
+- WhatsApp-Gruppe: *„Was geht heute?“*
 
-**Bild:**
-- Person scrollt durch Social Media
-- Wirkt unentschlossen, leicht genervt
+**On-Screen-Text**
+- „Heute was machen …“
+- „… aber was genau?“
 
-**On-Screen-Text:**
-> „Was geht heute eigentlich?“
-
-> „Spontan was unternehmen – aber keine Ahnung was.“
-
-**Voice-over (optional):**
-„Du hast Lust rauszugehen, aber keinen Plan, wo heute überhaupt etwas los ist.“
-
----
-
-## Szene 2 – Aktuelles Nutzerproblem (0:20–0:40)
-
-**Bild:**
-- Wechsel zwischen Instagram, Google, WhatsApp
-- Zu viele offene Tabs / Apps
-
-**On-Screen-Text:**
-> „Events überall …“
-
-> „… aber nirgends übersichtlich.“
-
-**Voice-over:**
-„Events findet man auf zig Plattformen – aber nie gesammelt an einem Ort.“
+**Voice-over (optional)**
+> „Du willst raus – aber keiner hat gerade den einen Plan.“
 
 ---
 
-## Szene 3 – Die Idee (0:40–1:00)
-
-**Bild:**
-- Cleaner Übergang zur Web-App
-- Erste Ansicht der Startseite
-
-**On-Screen-Text (zentriert):**
-> „Eine App für Events in deiner Nähe.“
-
-**Voice-over:**
-„Unsere Idee: Eine einfache Web-App, die dir zeigt, was gerade in deiner Umgebung passiert.“
-
----
-
-## Szene 4 – Hauptfunktion: Karte (1:00–1:30)
-
-**Bild:**
-- Kartenansicht
-- Aktueller Standort
-- Event-Pins erscheinen nach und nach
-
-**On-Screen-Text:**
-> „Karte statt endlosem Scrollen“
-
-> „Events direkt um dich herum“
-
-**Voice-over:**
-„Du öffnest die Karte und siehst sofort Events in deiner Nähe – egal ob heute Abend oder am Wochenende.“
-
----
-
-## Szene 5 – Event-Übersicht (1:30–1:55)
-
-**Bild:**
-- Klick auf ein Event
-- Detailansicht mit Name, Ort, Zeit, Kategorie
-
-**On-Screen-Text:**
-> „Alles Wichtige auf einen Blick“
-
-**Voice-over:**
-„Ein Klick reicht, um alle Infos zu bekommen – ohne lange suchen zu müssen.“
-
----
-
-## Szene 6 – Mehrwert für Nutzer:innen (1:55–2:20)
-
-**Bild:**
+## Szene 2 – Problem: Zu viele Infos, keine Übersicht (0:15–0:35)
+**Bild**
 - Schnelle Schnitte:
-  - Freundesgruppe unterwegs
-  - Bar, Konzert oder Meetup
+  - Instagram-Posts
+  - Google-Suche
+  - Event-Websites
+  - Notizen / Chats
+- Wirkt hektisch und unübersichtlich.
 
-**On-Screen-Text (kurz & prägnant):**
-- Spontan planen
-- Lokale Events entdecken
-- Einfach entscheiden
+**On-Screen-Text**
+- „Events überall.“
+- „Übersicht nirgends.“
+- „Und am Ende … macht man doch nix.“
 
-**Voice-over:**
-„Ideal für spontane Pläne, neue Orte und alles, was gerade in deiner Stadt läuft.“
-
----
-
-## Szene 7 – Abschluss & Fazit (2:20–2:40)
-
-**Bild:**
-- App-Name / Logo
-- Ruhige, klare Darstellung
-
-**On-Screen-Text (groß):**
-> „Wissen, was geht – ohne Aufwand.“
-
-**Optional:**
-> „Coming soon.“
-
-**Voice-over:**
-„Eine Plattform, die dir schnell zeigt, was sich lohnt.“
+**Voice-over**
+> „Events gibt’s genug. Aber nie gesammelt, nie übersichtlich – und nie schnell entschieden.“
 
 ---
 
-## Ende
+## Szene 3 – Lösung: Connactiv in einem Satz (0:35–0:50)
+**Bild**
+- Smooth Transition in die Connactiv App.
+- Start direkt auf der **Event-Map**.
+- Logo / Brand sichtbar.
+
+**On-Screen-Text (zentriert)**
+- „Connactiv“
+- „Events in deiner Nähe – auf einer Karte.“
+
+**Voice-over**
+> „Connactiv zeigt dir, was gerade in deiner Umgebung läuft. Direkt auf einer Karte.“
+
+---
+
+## Szene 4 – Kernfeature: Event-Map & Pins (0:50–1:15)
+**Bild**
+- Karte mit aktuellem Standort.
+- Mehrere Event-Pins sichtbar.
+- Leichtes Reinzoomen / Schwenken.
+- Kurzer Tap auf einen Pin (ohne Details).
+
+**On-Screen-Text**
+- „Keine endlosen Listen.“
+- „Ein Blick reicht.“
+
+**Voice-over**
+> „Du siehst sofort, wo etwas passiert – ohne Scrollen, ohne Suchen.“
+
+---
+
+## Szene 5 – Tags & Filter: Passend zu deinem Vibe (1:15–1:40)
+**Bild**
+- Obere Tag-Leiste durchscrollen:
+  - *afterwork*
+  - *beginner friendly*
+  - *bring a friend*
+  - *chill*
+  - *english friendly*
+  - *low pressure*
+  - *meetup*
+  - *night*
+  - *party*
+  - *sports*
+- Antippen von 2–3 Tags.
+- Karte aktualisiert sich sichtbar.
+
+**On-Screen-Text**
+- „Filtern nach Vibe.“
+- „Nicht nach Kategorien.“
+- „In Sekunden passend.“
+
+**Voice-over**
+> „Du filterst nicht kompliziert – sondern nach Stimmung. Genau so, wie du deinen Abend planst.“
+
+---
+
+## Szene 6 – Event-Details: Alles auf einen Blick (1:40–2:05)
+**Bild**
+- Tap auf einen Event-Pin.
+- Event-Detailansicht:
+  - Name
+  - Zeit
+  - Ort
+  - Kategorie
+- Kurzer Scroll, dann zurück zur Map.
+
+**On-Screen-Text**
+- „Was.“
+- „Wann.“
+- „Wo.“
+- „Fertig.“
+
+**Voice-over**
+> „Ein Tap – und du weißt alles Wichtige. Mehr brauchst du nicht.“
+
+---
+
+## Szene 7 – Gemeinsam entscheiden (2:05–2:30)
+**Bild**
+- Wechsel in unteren Tab „Direct“ (oder Sharing-Flow).
+- Event wird geteilt.
+- Chat-Ausschnitt:
+  - „Das hier?“
+  - „Bin dabei.“
+
+**On-Screen-Text**
+- „Direkt teilen.“
+- „Schnell entscheiden.“
+- „Einfach treffen.“
+
+**Voice-over**
+> „Schick das Event direkt an deine Freunde – und triff dich, statt ewig zu diskutieren.“
+
+---
+
+## Szene 8 – Abschluss & Call to Action (2:30–2:55)
+**Bild**
+- Zurück zur Event-Map.
+- Hero-Shot mit mehreren Pins.
+- Logo und App-Store-Badge sichtbar.
+
+**On-Screen-Text (groß)**
+- „Wissen, was geht.“
+- „Ohne Aufwand.“
+- „Connactiv“
+
+**Voice-over**
+> „Connactiv macht spontane Pläne einfach.“
+
+---
+
+## Optionaler Abspann (2:55–3:00)
+**Bild**
+- Logo auf ruhigem Hintergrund.
+
+**On-Screen-Text**
+- „Connactiv – discover your next plan.“
+- „Coming soon.“
