@@ -330,7 +330,7 @@
 }
 
 .leaflet-bottom.leaflet-right {
-    bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 8px);
+    bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 1px);
 }
 
 #map {
